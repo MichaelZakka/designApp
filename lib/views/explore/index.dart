@@ -1,3 +1,4 @@
+import 'package:design_app/data/models/response/product_response.dart';
 import 'package:design_app/views/auth/widgets/auth_textfield.dart';
 import 'package:design_app/views/explore/controller.dart';
 import 'package:design_app/views/home/widgets/design_widget.dart';
@@ -37,7 +38,14 @@ class ExplorePage extends StatelessWidget {
                             mainAxisSpacing: 45,
                             childAspectRatio: 0.7),
                     itemBuilder: (context, index) {
-                      return DesignWidget();
+                      return DesignWidget(
+                        product: ProductResponse(
+                          averageRate: 2,
+                          categoryId: 'Men',
+                          price: '180.0\$',
+                          name: 'T-shirt',description: 'This is a T-shirt',
+                        ),
+                      );
                     },
                   ),
                 ),

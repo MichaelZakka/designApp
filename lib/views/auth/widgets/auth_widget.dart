@@ -1,3 +1,4 @@
+import 'package:design_app/data/models/body/login_body.dart';
 import 'package:design_app/res/colors.dart';
 import 'package:design_app/res/styles.dart';
 import 'package:design_app/views/auth/controller.dart';
@@ -13,12 +14,6 @@ class AuthWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController email = TextEditingController();
-    TextEditingController password = TextEditingController();
-    TextEditingController username = TextEditingController();
-    TextEditingController Rpassword = TextEditingController();
-    TextEditingController Remail = TextEditingController();
-    TextEditingController confirmPassword = TextEditingController();
     return isLoging
         ? GetBuilder<AuthController>(builder: (_) {
             return Container(
@@ -37,12 +32,12 @@ class AuthWidget extends StatelessWidget {
                   15.r.verticalSpace,
                   AuthTextfield(
                     hint: 'Email',
-                    tec: email,
+                    tec: _.lEmail,
                   ),
                   15.r.verticalSpace,
                   AuthTextfield(
                     hint: 'Password',
-                    tec: password,
+                    tec: _.lPassword,
                   ),
                   15.r.verticalSpace,
                   _.isLoading.value
@@ -57,19 +52,16 @@ class AuthWidget extends StatelessWidget {
                           color: light_pink,
                           width: Get.width * 0.6,
                           ontap: () {
-                            if (email.text == 'Admin' &&
-                                password.text == 'Admin') {
-                              Get.offAllNamed('/admin');
-                            } else
-                              Get.offAllNamed('/main');
-                            // if (email.text.isEmpty) {
-                            //   _.validation('Email cannot be empty', red);
-                            // } else if (password.text.isEmpty) {
-                            //   _.validation('Password cannot be empty', red);
-                            // } else {
-                            //   _.loadingToggle();
-                            //   // _.loginRequest(email.text, password.text);
-                            // }
+                            if (_.lEmail.text.isEmpty) {
+                              _.validation('Email cannot be empty', red);
+                            } else if (_.lPassword.text.isEmpty) {
+                              _.validation('Password cannot be empty', red);
+                            } else {
+                              _.loadingToggle();
+                              _.loginRequest(LoginBody(
+                                  email: _.lEmail.text,
+                                  password: _.lPassword.text));
+                            }
                           },
                           textStyle: poppins_xSamll_white_bold,
                         ),
@@ -122,33 +114,33 @@ class AuthWidget extends StatelessWidget {
                   15.r.verticalSpace,
                   AuthTextfield(
                     hint: 'Username',
-                    tec: username,
+                    tec: _.rUsername,
                   ),
                   15.r.verticalSpace,
                   AuthTextfield(
                     hint: 'Email',
-                    tec: Remail,
+                    tec: _.rEmail,
                   ),
                   15.r.verticalSpace,
                   AuthTextfield(
                     hint: 'Password',
-                    tec: Rpassword,
+                    tec: _.rPassword,
                   ),
                   15.r.verticalSpace,
                   AuthTextfield(
                     hint: 'Confirm Password',
-                    // tec: confirmPassword,
+                    tec: _.rConfirmPass,
                   ),
                   15.r.verticalSpace,
                   AuthTextfield(
                     hint: 'Mobile Number',
-                    // tec: confirmPassword,
+                    tec: _.rMobileNumber,
                     textInputType: TextInputType.number,
                   ),
                   15.r.verticalSpace,
                   AuthTextfield(
                     hint: 'Address',
-                    // tec: confirmPassword,
+                    tec: _.rAddress,
                   ),
                   15.r.verticalSpace,
                   SizedBox(
@@ -191,26 +183,28 @@ class AuthWidget extends StatelessWidget {
                           width: Get.width * 0.6,
                           textStyle: poppins_xSamll_white_bold,
                           ontap: () {
-                            Get.offAllNamed('/main');
-                            // if (Remail.text.isEmpty) {
-                            //   _.validation('Email cannot be empty', red);
-                            // } else if (username.text.isEmpty) {
-                            //   _.validation('Username cannot be empty', red);
-                            // } else if (Rpassword.text.isEmpty) {
-                            //   _.validation('Password cannot be empty', red);
-                            // } else if (confirmPassword.text != Rpassword.text) {
-                            //   _.validation(
-                            //       'Password confirmation doesn\'t match', red);
-                            // } else {
-                            //   // _.signupRequest(
-                            //   //     Remail.text, Rpassword.text, username.text);
-                            // }
+                            if (_.rEmail.text.isEmpty) {
+                              _.validation('Email cannot be empty', red);
+                            } else if (_.rUsername.text.isEmpty) {
+                              _.validation('Username cannot be empty', red);
+                            } else if (_.rPassword.text.isEmpty) {
+                              _.validation('Password cannot be empty', red);
+                            } else if (_.rAddress.text.isEmpty) {
+                              _.validation('Address cannot be empty', red);
+                            } else if (_.rConfirmPass.text !=
+                                _.rPassword.text) {
+                              _.validation(
+                                  'Password confirmation doesn\'t match', red);
+                            } else {
+                              _.loadingToggle();
+                              _.signupRequest();
+                            }
                           },
                         ),
                   15.r.verticalSpace,
                   SizedBox(
                     width: Get.width * 0.6,
-                    child: Divider(
+                    child: const Divider(
                       thickness: 2,
                       color: black,
                     ),

@@ -16,8 +16,8 @@ class UserDesignPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<UserDesignContoller>(builder: (_) {
       return Scaffold(
-        appBar: const CustomAppBar(
-          title: 'Design Name',
+        appBar:  CustomAppBar(
+          title: 'test',
         ),
         body: Center(
           child: SizedBox(

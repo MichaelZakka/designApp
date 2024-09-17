@@ -1,15 +1,15 @@
 class ApiErrorResponse<T> {
-  final String message;
-  final T errors;
+  final String status;
+  final T message;
 
   ApiErrorResponse({
-    required this.message,
-    required this.errors});
+    required this.status,
+    required this.message});
 
   factory ApiErrorResponse.fromJson(Map<String, dynamic> json) {
     return ApiErrorResponse(
+      status: json["status"],
       message: json["message"],
-      errors: json["errors"],
     );
   }
 }

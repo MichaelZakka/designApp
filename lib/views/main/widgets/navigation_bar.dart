@@ -34,7 +34,7 @@ class CustomNavgigationBar extends StatelessWidget {
             IconButton(
                 onPressed: () {
                   _.moveBetweenPages(2);
-                  _.updateTitle('Account');
+                  _.updateTitle('Profile');
                 },
                 icon: Icon(Icons.person,
                     color: _.pageIndex.value == 2 ? black : white)),

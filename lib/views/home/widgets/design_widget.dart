@@ -1,16 +1,19 @@
+import 'package:design_app/data/models/response/product_response.dart';
 import 'package:design_app/res/images.dart';
 import 'package:design_app/res/styles.dart';
+import 'package:design_app/views/design/user/index.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class DesignWidget extends StatelessWidget {
-  const DesignWidget({super.key});
+  final ProductResponse product;
+  const DesignWidget({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Get.toNamed('/userdesign');
+      onTap: () {
+        Get.to(()=> UserDesignPage());
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,12 +25,12 @@ class DesignWidget extends StatelessWidget {
             ),
           ),
           Text(
-            'Design name',
+            '${product.name}',
             overflow: TextOverflow.ellipsis,
             style: poppins_xSamll_black,
           ),
           Text(
-            '180\$',
+            '${product.price}',
             style: poppins_xSamll_grey,
           )
         ],

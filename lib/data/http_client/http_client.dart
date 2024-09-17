@@ -32,7 +32,7 @@ class MyHttpClient {
       final response =
           await http.post(Uri.parse(apiUrl), body: data, headers: headers);
       var js = jsonDecode(response.body);
-      print(response.body);
+
       if (response.statusCode == 200 || response.statusCode == 201) {
         return ApiResponse.fromJson(js);
       }

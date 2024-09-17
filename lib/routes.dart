@@ -1,19 +1,31 @@
+import 'package:design_app/views/about/binding.dart';
+import 'package:design_app/views/about/index.dart';
 import 'package:design_app/views/account/binding.dart';
 import 'package:design_app/views/account/index.dart';
+import 'package:design_app/views/addDesign/binding.dart';
+import 'package:design_app/views/addDesign/index.dart';
 import 'package:design_app/views/admin_dashboard/binding.dart';
 import 'package:design_app/views/admin_dashboard/index.dart';
 import 'package:design_app/views/auth/binding.dart';
 import 'package:design_app/views/auth/index.dart';
+import 'package:design_app/views/contact_us/binding.dart';
+import 'package:design_app/views/contact_us/index.dart';
 import 'package:design_app/views/design/designer/binding.dart';
 import 'package:design_app/views/design/designer/index.dart';
 import 'package:design_app/views/design/user/binding.dart';
 import 'package:design_app/views/design/user/index.dart';
+import 'package:design_app/views/designerHome/binding.dart';
+import 'package:design_app/views/designerHome/index.dart';
+import 'package:design_app/views/designer_account/binding.dart';
+import 'package:design_app/views/designer_account/index.dart';
 import 'package:design_app/views/home/binding.dart';
 import 'package:design_app/views/home/index.dart';
 import 'package:design_app/views/main/binding.dart';
 import 'package:design_app/views/main/index.dart';
 import 'package:design_app/views/explore/binding.dart';
 import 'package:design_app/views/explore/index.dart';
+import 'package:design_app/views/my_designes/binding.dart';
+import 'package:design_app/views/my_designes/index.dart';
 import 'package:design_app/views/splash/binding.dart';
 import 'package:design_app/views/splash/index.dart';
 import 'package:get/get.dart';
@@ -65,6 +77,36 @@ abstract class AppRouting {
           page: () => AccountPage(),
           binding: AccountBinding(),
         ),
+        GetPage(
+          name: Pages.contactus.value,
+          page: () => ContactUsPage(),
+          binding: ContactUsBinding(),
+        ),
+        GetPage(
+          name: Pages.about.value,
+          page: () => AboutPage(),
+          binding: AboutBinding(),
+        ),
+        GetPage(
+          name: Pages.designerHome.value,
+          page: () => DesignerHomePage(),
+          binding: DesignerHomeBinding(),
+        ),
+        GetPage(
+          name: Pages.addDesign.value,
+          page: () => AddDesignPage(),
+          binding: AddDesignBinding(),
+        ),
+        GetPage(
+          name: Pages.myDesignes.value,
+          page: () => MyDesignesPage(),
+          binding: MyDesignesBinding(),
+        ),
+        GetPage(
+          name: Pages.accountDesigner.value,
+          page: () => DesignerAccountPage(),
+          binding: DesignerAccountBinding(),
+        ),
       ];
 }
 
@@ -78,6 +120,12 @@ enum Pages {
   home,
   explore,
   account,
+  contactus,
+  about,
+  designerHome,
+  addDesign,
+  myDesignes,
+  accountDesigner,
 }
 
 extension PagesExtension on Pages {
@@ -101,6 +149,18 @@ extension PagesExtension on Pages {
         return '/explore';
       case Pages.account:
         return '/account';
+      case Pages.contactus:
+        return '/contact';
+      case Pages.about:
+        return '/about';
+      case Pages.designerHome:
+        return '/designerHome';
+      case Pages.addDesign:
+        return '/addDesign';
+      case Pages.myDesignes:
+        return '/myDesignes';
+      case Pages.accountDesigner:
+        return '/accountDesigner';
       default:
         throw 'unnamed route';
     }
@@ -128,6 +188,18 @@ abstract class Navigation {
         return Pages.explore;
       case '/account':
         return Pages.account;
+      case '/contact':
+        return Pages.contactus;
+      case '/about':
+        return Pages.about;
+      case '/designerHome':
+        return Pages.designerHome;
+      case '/addDesign':
+        return Pages.addDesign;
+      case '/myDesignes':
+        return Pages.myDesignes;
+      case '/accountDesigner':
+        return Pages.accountDesigner;
       default:
         return null;
     }

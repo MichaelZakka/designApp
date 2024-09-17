@@ -22,7 +22,7 @@ class SplashPage extends StatelessWidget {
                 width: 225.r,
               ),
               50.r.verticalSpace,
-              Text('AppName', style: poppins_medium_black),
+              Text('Fashion Designers Shop', style: poppins_medium_black),
             ],
           ),
         ),
