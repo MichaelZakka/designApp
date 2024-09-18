@@ -115,30 +115,31 @@ class DesignDetails extends StatelessWidget {
                       },
                     ),
                     15.r.verticalSpace,
-                    _.selectedSizes.isEmpty
-                        ? SizedBox()
-                        : Text(
-                            _.selectedSizes.join(', '),
-                            style: poppins_xxSamll_black,
-                          ),
-                    15.r.verticalSpace,
+                    // _.selectedSizes.isEmpty
+                    //     ? SizedBox()
+                    //     : Text(
+                    //         _.selectedSizes.join(', '),
+                    //         style: poppins_xxSamll_black,
+                    //       ),
+                    // 15.r.verticalSpace,
                     CustomButton(
                       width: Get.width * 0.4,
                       color: blue,
                       text: 'Available colors',
                       textStyle: poppins_xxSamll_white,
                       ontap: () {
-                        Get.to(() => AvailableColors(colors: _.availableColors));
+                        Get.to(
+                            () => AvailableColors(colors: _.availableColors));
                       },
                     ),
                     15.r.verticalSpace,
-                    _.selectedColors.isEmpty
-                        ? SizedBox()
-                        : Text(
-                            _.selectedColors.join(', '),
-                            style: poppins_xxSamll_black,
-                          ),
-                    15.r.verticalSpace,
+                    // _.colorHex.isEmpty
+                    //     ? SizedBox()
+                    //     : Text(
+                    //         _.colorHex.join(', '),
+                    //         style: poppins_xxSamll_black,
+                    //       ),
+                    // 15.r.verticalSpace,
                     CustomButton(
                       color: blue,
                       text: 'Upload picture',
@@ -153,7 +154,8 @@ class DesignDetails extends StatelessWidget {
                               child: Center(
                                 child: Dialog(
                                   child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
@@ -209,16 +211,47 @@ class DesignDetails extends StatelessWidget {
                             child: Image.file(File(_.pickedImage)))
                         : const SizedBox(),
                     15.r.verticalSpace,
-                    CustomButton(
-                      color: light_pink,
-                      text: 'Confirm',
-                      textStyle: poppins_xxSamll_white,
-                      width: Get.width * 0.4,
-                      ontap: () {
-                        // _.setSizesMap();
-                        _.addDesignRequest();
-                      },
-                    ),
+                    _.isLoading.value
+                        ? CircularProgressIndicator(
+                            color: blue,
+                          )
+                        : CustomButton(
+                            color: light_pink,
+                            text: 'Confirm',
+                            textStyle: poppins_xxSamll_white,
+                            width: Get.width * 0.4,
+                            ontap: () {
+                              if (_.name.text == '') {
+                                _.validation(
+                                    'Please enter the name of your design',
+                                    red);
+                              } else if (_.description.text == '') {
+                                _.validation(
+                                    "Please enter the describtion of your design",
+                                    red);
+                              } else if (_.prepareDeadline.text == '') {
+                                _.validation(
+                                    "Please enter the prepare deadline of your design",
+                                    red);
+                              } else if (_.selectedCategory.value == '') {
+                                _.validation(
+                                    'Please enter the design category', red);
+                              } else if (_.selectedColors.isEmpty) {
+                                _.validation(
+                                    'Please choose the design available colors',
+                                    red);
+                              } else if (_.selectedSizes.isEmpty) {
+                                _.validation(
+                                    'Please choose the design available sizes',
+                                    red);
+                              } else if (_.pickedImage == '') {
+                                _.validation('Please upload an image', red);
+                              } else {
+                                _.loadingToggle();
+                                _.addDesignRequest();
+                              }
+                            },
+                          ),
                     15.r.verticalSpace,
                   ],
                 ),

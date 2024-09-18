@@ -23,21 +23,21 @@ class CustomNavgigationBar extends StatelessWidget {
                   _.updateTitle('Home');
                 },
                 icon: Icon(Icons.home,
-                    color: _.pageIndex.value == 0 ? black : white)),
+                    color: _.pageIndex.value == 0 ? blue : white)),
             IconButton(
                 onPressed: () {
                   _.moveBetweenPages(1);
                   _.updateTitle('Explore');
                 },
                 icon: Icon(Icons.search,
-                    color: _.pageIndex.value == 1 ? black : white)),
+                    color: _.pageIndex.value == 1 ? blue : white)),
             IconButton(
                 onPressed: () {
                   _.moveBetweenPages(2);
                   _.updateTitle('Profile');
                 },
                 icon: Icon(Icons.person,
-                    color: _.pageIndex.value == 2 ? black : white)),
+                    color: _.pageIndex.value == 2 ? blue : white)),
             // IconButton(
             //     onPressed: () {}, icon: const Icon(Icons.person, color: white)),
           ],

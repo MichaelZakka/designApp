@@ -1,4 +1,4 @@
-const String baseUrl = 'http://192.168.66.125:8000';
+const String baseUrl = 'http://192.168.104.125:8000';
 
 /////////////////////////////////////headers/////////////////////////////////////
 
@@ -14,6 +14,8 @@ const String LOGOUT = '$baseUrl/api/logout';
 
 const String DELETE_ACCOUNT = '$baseUrl/api/user-delete';
 const String CHANGE_PASSWORD = '$baseUrl/api/user-changePassword';
+const String UPDATE_ACCOUNT = '$baseUrl/api/user-update';
+
 
 /////////////////////////////////////homepage/////////////////////////////////////
 
@@ -25,3 +27,6 @@ const String CATEGORIES = '$baseUrl/api/categories';
 const String COLORS = '$baseUrl/api/colors';
 const String SIZES = '$baseUrl/api/sizes';
 const String CREATE_DESIGN = '$baseUrl/api/design-create';
+
+
+

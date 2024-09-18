@@ -24,6 +24,7 @@ class _AvailableColorsState extends State<AvailableColors> {
                 _.selectedColors.add(_.availableColors[i].id!);
               }
             }
+            _.filterColorResponseByIds(_.availableColors , _.selectedColors);
             _.setColorsMap();
             Navigator.pop(context);
           },

@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoryDisplay extends StatelessWidget {
   final String category;
-  const CategoryDisplay({super.key ,required this.category});
+  const CategoryDisplay({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class CategoryDisplay extends StatelessWidget {
         15.r.verticalSpace,
         Text(
           ' $category',
-          style: poppins_medium_black,
+          style: poppins_samll_black,
         ),
         15.r.verticalSpace,
         SingleChildScrollView(

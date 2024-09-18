@@ -1,4 +1,5 @@
 import 'package:design_app/data/models/body/changepassword_body.dart';
+import 'package:design_app/data/models/body/updateUser_body.dart';
 import 'package:design_app/data/repository/account_repo.dart';
 import 'package:design_app/data/repository/auth_repo.dart';
 import 'package:design_app/init_controller/app_storage.dart';
@@ -15,6 +16,15 @@ class AccountController extends GetxController {
   String mobile = '';
 
   RxBool isLoading = false.obs;
+
+  TextEditingController currentPass = TextEditingController();
+  TextEditingController newPass = TextEditingController();
+  TextEditingController confirmNewPass = TextEditingController();
+
+  TextEditingController newEmail = TextEditingController();
+  TextEditingController newUsername = TextEditingController();
+  TextEditingController newAddress = TextEditingController();
+  TextEditingController newMobile = TextEditingController();
 
   loadingToggle() {
     isLoading.toggle();
@@ -52,10 +62,19 @@ class AccountController extends GetxController {
     }
   }
 
-  changePasswordRequest(ChangePasswordBody body) async {
+  changePasswordRequest() async {
     try {
-      accountRepo.changePassword(body).then((value) {
-        
+      accountRepo
+          .changePassword(ChangePasswordBody(
+              currentPassword: currentPass.text, newPassword: newPass.text))
+          .then((value) {
+        print(value);
+        if (value.status == 'success') {
+          validation(value.message, green);
+          Get.offAllNamed('/main');
+        } else {
+          validation('Something went wrong , Please try again', red);
+        }
       });
     } catch (e) {
       print(e);
@@ -71,6 +90,33 @@ class AccountController extends GetxController {
         textColor: Colors.white,
         fontSize: xSmall,
         timeInSecForIosWeb: 3);
+  }
+
+  updateAccount() async {
+    try {
+      accountRepo
+          .updateAccount(UpdateUseraccountBody(
+        name: newUsername.text,
+        address: newAddress.text,
+        email: newEmail.text,
+        mobile: newMobile.text,
+      ))
+          .then((value) {
+        print(value.message);
+        if (value.status == 'success') {
+          validation(value.message, green);
+          Get.offAllNamed('/main');
+          AppStorage.savePref('username', value.data['name']);
+          AppStorage.savePref('email', value.data['email']);
+          AppStorage.savePref('address', value.data['address']);
+          AppStorage.savePref('mobile', value.data['mobile']);
+        } else {
+          validation('Something went wrong , Please try again', red);
+        }
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override

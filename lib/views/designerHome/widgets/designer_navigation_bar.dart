@@ -23,21 +23,21 @@ class DesignerNavgigationBar extends StatelessWidget {
                   _.updateTitle('My designes');
                 },
                 icon: Icon(Icons.home,
-                    color: _.pageIndex.value == 0 ? black : white)),
+                    color: _.pageIndex.value == 0 ? blue : white)),
             IconButton(
                 onPressed: () {
                   _.moveBetweenPages(1);
                   _.updateTitle('Add Design');
                 },
                 icon: Icon(Icons.add,
-                    color: _.pageIndex.value == 1 ? black : white)),
+                    color: _.pageIndex.value == 1 ? blue : white)),
             IconButton(
                 onPressed: () {
                   _.moveBetweenPages(2);
                   _.updateTitle('Profile');
                 },
                 icon: Icon(Icons.person,
-                    color: _.pageIndex.value == 2 ? black : white)),
+                    color: _.pageIndex.value == 2 ? blue : white)),
           ],
         ),
       );

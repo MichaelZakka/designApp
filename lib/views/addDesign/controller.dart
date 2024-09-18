@@ -4,7 +4,10 @@ import 'package:design_app/data/models/response/category_response.dart';
 import 'package:design_app/data/models/response/color_response.dart';
 import 'package:design_app/data/models/response/size_response.dart';
 import 'package:design_app/data/repository/design_repo.dart';
+import 'package:design_app/res/colors.dart';
+import 'package:design_app/res/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -17,10 +20,22 @@ class AddDesignController extends GetxController {
 
   ////////////////////////////////////////////////
 
+  RxBool isLoading = false.obs;
+
+  loadingToggle() {
+    isLoading.toggle();
+    update();
+  }
+
+  ////////////////////////////////////////////////
+
   String pickedImage = '';
   File? image;
 
   ////////////////////////////////////////////////
+
+  List<String> colorHex = [];
+  List<String> sizeName = [];
 
   List<CategoryResponse> categories = [];
   List<SizeResponse> availableSizes = [];
@@ -54,6 +69,26 @@ class AddDesignController extends GetxController {
   colorsList(List<dynamic> jsonList) {
     availableColors =
         jsonList.map((jsonItem) => ColorResponse.fromJson(jsonItem)).toList();
+  }
+
+  filterColorResponseByIds(List<ColorResponse> colorList, List<int> idsToFind) {
+    List<ColorResponse> test =
+        colorList.where((color) => idsToFind.contains(color.id)).toList();
+    for (int i = 0; i < test.length; i++) {
+      colorHex.add(test[i].hex!);
+    }
+    colorHex = colorHex.toSet().toList();
+    update();
+  }
+
+  filterSizeResponseByIds(List<SizeResponse> sizeList, List<int> idsToFind) {
+    List<SizeResponse> test =
+        sizeList.where((size) => idsToFind.contains(size.id)).toList();
+    for (int i = 0; i < test.length; i++) {
+      sizeName.add(test[i].size!);
+    }
+    sizeName = sizeName.toSet().toList();
+    update();
   }
 
   Future<bool> cameraPermission() async {
@@ -165,10 +200,11 @@ class AddDesignController extends GetxController {
 
   setColorsMap() {
     Map<String, dynamic> colorsToSend = {};
-    for (int i = 0; i < selectedColors.length; i++) {
+    List<dynamic> finalList = selectedColors.toSet().toList();
+    for (int i = 0; i < finalList.length; i++) {
       colorsToSend.addIf(true, "colors[$i]", '${selectedColors[i]}');
     }
-    print(colorsToSend);
+
     return colorsToSend;
   }
 
@@ -182,17 +218,31 @@ class AddDesignController extends GetxController {
         'prepare_duration': prepareDeadline.text,
         'price': price.text,
         'category_id': '1',
-      }, sizesToSend, colorsToSend , pickedImage).then((value) {
+      }, sizesToSend, colorsToSend, pickedImage).then((value) {
+        loadingToggle();
+        validation(
+            'Your request sent successfully pending admin approve', green);
         print(value.message);
-        if(value.status =='success'){
-          
-        }else if(value.status == 'error'){
-
+        if (value.status == 'success') {
+          Get.offAllNamed('/designerHome');
+        } else if (value.status == 'error') {
+          validation(value.status, red);
         }
       });
     } catch (e) {
       print(e);
     }
+  }
+
+  void validation(String message, Color color) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        backgroundColor: color,
+        textColor: Colors.white,
+        fontSize: xSmall,
+        timeInSecForIosWeb: 3);
   }
 
   @override

@@ -25,8 +25,10 @@ class _AvailableSizesState extends State<AvailableSizes> {
                 _.selectedSizes.add(_.availableSizes[i].id!);
               }
             }
-            print(_.setSizesMap());
+            _.filterSizeResponseByIds(_.availableSizes, _.selectedSizes);
+
             Navigator.pop(context);
+            print(_.sizeName);
           },
           child: Container(
               width: 60,

@@ -56,36 +56,73 @@ class DesignerAccountPage extends StatelessWidget {
                             onClosing: () {},
                             builder: (context) {
                               return Dialog(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Edit your account',
-                                      style: poppins_xSamll_black_bold,
-                                    ),
-                                    15.r.verticalSpace,
-                                    const AuthTextfield(
-                                      hint: 'Email',
-                                      width: double.infinity,
-                                    ),
-                                    15.r.verticalSpace,
-                                    const AuthTextfield(
-                                      hint: 'Username',
-                                      width: double.infinity,
-                                    ),
-                                    15.r.verticalSpace,
-                                    const AuthTextfield(
-                                      hint: 'Address',
-                                      width: double.infinity,
-                                    ),
-                                    50.r.verticalSpace,
-                                    CustomButton(
-                                      color: light_pink,
-                                      text: 'Update',
-                                      textStyle: poppins_xxSamll_white,
-                                      width: Get.width * 0.3,
-                                    ),
-                                  ],
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Edit your account',
+                                        style: poppins_xSamll_black_bold,
+                                      ),
+                                      15.r.verticalSpace,
+                                      AuthTextfield(
+                                        hint: 'Email',
+                                        width: double.infinity,
+                                        tec: _.newEmail,
+                                      ),
+                                      15.r.verticalSpace,
+                                      AuthTextfield(
+                                        hint: 'Username',
+                                        width: double.infinity,
+                                        tec: _.newUsername,
+                                      ),
+                                      15.r.verticalSpace,
+                                      AuthTextfield(
+                                        hint: 'Mobile',
+                                        width: double.infinity,
+                                        tec: _.newMobile,
+                                        textInputType: TextInputType.number,
+                                      ),
+                                      15.r.verticalSpace,
+                                      AuthTextfield(
+                                        hint: 'Address',
+                                        width: double.infinity,
+                                        tec: _.newAddress,
+                                      ),
+                                      50.r.verticalSpace,
+                                      CustomButton(
+                                        color: light_pink,
+                                        text: 'Update',
+                                        textStyle: poppins_xxSamll_white,
+                                        width: Get.width * 0.3,
+                                        ontap: () {
+                                          if (_.newUsername.text == '') {
+                                            _.validation(
+                                                'Username cannot be empty',
+                                                red);
+                                          } else if (_.newEmail.text == '') {
+                                            _.validation(
+                                                'Email cannot be empty', red);
+                                          } else if (_.newMobile.text == '') {
+                                            _.validation(
+                                                'Moblie cannot be empty', red);
+                                          } else if (!(_.newEmail.text
+                                                  .contains('@') ||
+                                              _.newEmail.text.contains('.'))) {
+                                            _.validation(
+                                                'The email field must be a valid email address',
+                                                red);
+                                          } else if (_.newAddress.text == '') {
+                                            _.validation(
+                                                'Address cannot be empty', red);
+                                          } else {
+                                            _.updateAccount();
+                                          }
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               );
                             },
@@ -154,26 +191,30 @@ class DesignerAccountPage extends StatelessWidget {
                             builder: (context) {
                               return Dialog(
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       'Change your password',
                                       style: poppins_xSamll_black_bold,
                                     ),
                                     15.r.verticalSpace,
-                                    const AuthTextfield(
+                                    AuthTextfield(
                                       hint: 'Old Password',
                                       width: double.infinity,
+                                      tec: _.currentPass,
                                     ),
                                     15.r.verticalSpace,
-                                    const AuthTextfield(
+                                    AuthTextfield(
                                       hint: 'New Password',
                                       width: double.infinity,
+                                      tec: _.newPass,
                                     ),
                                     15.r.verticalSpace,
-                                    const AuthTextfield(
+                                    AuthTextfield(
                                       hint: 'New Password Confirmation',
                                       width: double.infinity,
+                                      tec: _.newPassConfirmation,
                                     ),
                                     50.r.verticalSpace,
                                     CustomButton(
@@ -181,6 +222,27 @@ class DesignerAccountPage extends StatelessWidget {
                                       text: 'Confirm',
                                       textStyle: poppins_xxSamll_white,
                                       width: Get.width * 0.3,
+                                      ontap: () {
+                                        if (_.currentPass.text == '') {
+                                          _.validation(
+                                              'Please enter your current Password',
+                                              red);
+                                        } else if (_.newPass.text == '') {
+                                          _.validation(
+                                              'Please enter your new Password',
+                                              red);
+                                        } else if (_.newPass.text.length < 8) {
+                                          _.validation(
+                                              'The new password field must be at least 8 characters',
+                                              red);
+                                        } else if (_.newPass.text !=
+                                            _.newPassConfirmation.text) {
+                                          _.validation(
+                                              'Password confirmation doesn\'t match',
+                                              red);
+                                        }
+                                        _.changePasswordRequest();
+                                      },
                                     ),
                                   ],
                                 ),

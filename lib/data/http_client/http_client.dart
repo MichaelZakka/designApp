@@ -53,7 +53,6 @@ class MyHttpClient {
         return ApiErrorResponse.fromJson(js);
       }
     } catch (e) {
-
       print(e);
     }
   }
@@ -69,7 +68,6 @@ class MyHttpClient {
       }
       return ApiErrorResponse.fromJson(js);
     } catch (e) {
-
       print(e);
     }
   }
