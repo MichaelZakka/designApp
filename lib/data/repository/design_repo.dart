@@ -85,4 +85,11 @@ class DesignRepo {
       "Accept": "application/json"
     });
   }
+
+  deleteDesign(int id) async {
+    return await http.deleteRequest('$DELETE_DESIGN/$id', {}, {
+      "Authorization": "Bearer ${initController.token}",
+      "Accept": "application/json"
+    });
+  }
 }

@@ -22,12 +22,13 @@ const String USER_INFO = '$baseUrl/api/user-info';
 
 const String HOMEPAGE = '$baseUrl/api/homepage';
 
-/////////////////////////////////////adddesign/////////////////////////////////////
+/////////////////////////////////////design/////////////////////////////////////
 
 const String CATEGORIES = '$baseUrl/api/categories';
 const String COLORS = '$baseUrl/api/colors';
 const String SIZES = '$baseUrl/api/sizes';
 const String CREATE_DESIGN = '$baseUrl/api/design-create';
+const String DELETE_DESIGN = '$baseUrl/api/design-delete';
 
 /////////////////////////////////////admin/////////////////////////////////////
 
