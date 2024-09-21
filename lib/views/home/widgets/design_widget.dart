@@ -37,6 +37,7 @@ class DesignWidget extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(30),
               child: Image.network(
+                // DRESS,
                 baseImageUrl + product.image!,
                 fit: BoxFit.fill,
                 width: 150.r,

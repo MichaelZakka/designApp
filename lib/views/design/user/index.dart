@@ -162,16 +162,6 @@ class UserDesignPage extends StatelessWidget {
 
                   /////////////////////////////////////////////////////////////////
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      
-                      Text(
-                        _.rating.toString(),
-                        style: poppins_samll_black,
-                      )
-                    ],
-                  ),
                   15.r.verticalSpace,
                   Align(
                     alignment: Alignment.bottomCenter,
