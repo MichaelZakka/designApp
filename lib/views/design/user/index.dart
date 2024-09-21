@@ -4,6 +4,8 @@ import 'package:design_app/data/models/response/design_response.dart';
 import 'package:design_app/res/colors.dart';
 import 'package:design_app/res/styles.dart';
 import 'package:design_app/views/design/user/controller.dart';
+import 'package:design_app/views/designer_info/binding.dart';
+import 'package:design_app/views/designer_info/index.dart';
 import 'package:design_app/widgets/appBar/custom_appbar.dart';
 import 'package:design_app/widgets/buttons/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +28,22 @@ class UserDesignPage extends StatelessWidget {
 
     return GetBuilder<UserDesignContoller>(builder: (_) {
       return Scaffold(
+        floatingActionButton: GestureDetector(
+          onTap: (){
+            Get.to(()=> DesignerInfoPage(email: 'test@test.com',mobile: '+963 115 566 870',) , binding: DesignerInfoBinding());
+          },
+          child: Container(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(color: pink, shape: BoxShape.circle),
+            child: const Center(
+              child: Icon(
+                Icons.chat,
+                color: white,
+              ),
+            ),
+          ),
+        ),
         appBar: const CustomAppBar(
           title: 'Design Details',
         ),
