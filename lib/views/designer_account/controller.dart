@@ -30,6 +30,13 @@ class DesignerAccountController extends GetxController {
   TextEditingController newAddress = TextEditingController();
   TextEditingController newMobile = TextEditingController();
 
+  fillData() {
+    newEmail = TextEditingController(text: email);
+    newUsername = TextEditingController(text: username);
+    newAddress = TextEditingController(text: address);
+    newMobile = TextEditingController(text: mobile);
+  }
+
   loadingToggle() {
     isLoading.toggle();
     update();
@@ -129,6 +136,7 @@ class DesignerAccountController extends GetxController {
     email = await AppStorage.getPref('email');
     address = await AppStorage.getPref('address');
     mobile = await AppStorage.getPref('mobile');
+    fillData();
     super.onInit();
   }
 }

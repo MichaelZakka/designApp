@@ -4,6 +4,9 @@ import 'package:design_app/data/constant/constant.dart';
 import 'package:design_app/data/http_client/api_error_response.dart';
 import 'package:design_app/data/http_client/api_response.dart';
 import 'package:design_app/data/http_client/http_client.dart';
+import 'package:design_app/data/models/body/order_body.dart';
+import 'package:design_app/data/models/body/reviewDesign_body.dart';
+import 'package:design_app/data/models/body/search_body.dart';
 import 'package:design_app/init_controller/init_controller.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as multiPartHttp;
@@ -55,30 +58,31 @@ class DesignRepo {
     }
   }
 
-  // addPost(AddPostBody addPostBody) async {
-  //   final request = http1.MultipartRequest('POST', Uri.parse(ADD_POST));
-  //   request.fields.addAll({
-  //     "name": "test name",
-  //     "caption": "${addPostBody.caption}",
-  //     "location": "${addPostBody.location}",
-  //   });
-  //   request.files.add(
-  //       await http1.MultipartFile.fromPath('image', '${addPostBody.image}'));
-  //   request.headers.addAll({
-  //     'Accept': 'application/json',
-  //     'Authorization': 'Bearer ${await AppStorage.getToken()}'
-  //   });
+  getDesign(int id) async {
+    return await http.getRequest("$GET_DESIGN/$id", {}, {
+      "Authorization": "Bearer ${initController.token}",
+      "Accept": "application/json"
+    });
+  }
 
-  //   final response = await request.send();
-  //   var jsonResponse = await http1.Response.fromStream(response);
-  //   var js = jsonDecode(jsonResponse.body);
-  //   if (response.statusCode == 200) {
-  //     print(response);
-  //     print(response.statusCode);
+  makeOrder(OrderBody body) async {
+    return await http.postRequest(ORDER, body.toJson(), {
+      "Authorization": "Bearer ${initController.token}",
+      "Accept": "application/json"
+    });
+  }
 
-  //     return ApiResponse.fromJson(js);
-  //   } else {
-  //     return ApiErrorResponse.fromJson(js);
-  //   }
-  // }
+  search(SearchBody body) async {
+    return await http.postRequest(SEARCH, body.toJson(), {
+      "Authorization": "Bearer ${initController.token}",
+      "Accept": "application/json"
+    });
+  }
+
+  reviewDesign(ReviewDesignBody body) async {
+    return await http.postRequest(REVIEW, body.toJson(), {
+      "Authorization": "Bearer ${initController.token}",
+      "Accept": "application/json"
+    });
+  }
 }

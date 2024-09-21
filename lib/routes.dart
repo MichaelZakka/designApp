@@ -8,6 +8,8 @@ import 'package:design_app/views/admin_dashboard/binding.dart';
 import 'package:design_app/views/admin_dashboard/index.dart';
 import 'package:design_app/views/auth/binding.dart';
 import 'package:design_app/views/auth/index.dart';
+import 'package:design_app/views/category/binding.dart';
+import 'package:design_app/views/category/index.dart';
 import 'package:design_app/views/contact_us/binding.dart';
 import 'package:design_app/views/contact_us/index.dart';
 import 'package:design_app/views/design/designer/binding.dart';
@@ -26,6 +28,8 @@ import 'package:design_app/views/explore/binding.dart';
 import 'package:design_app/views/explore/index.dart';
 import 'package:design_app/views/my_designes/binding.dart';
 import 'package:design_app/views/my_designes/index.dart';
+import 'package:design_app/views/orderHistory/binding.dart';
+import 'package:design_app/views/orderHistory/index.dart';
 import 'package:design_app/views/splash/binding.dart';
 import 'package:design_app/views/splash/index.dart';
 import 'package:get/get.dart';
@@ -107,6 +111,16 @@ abstract class AppRouting {
           page: () => DesignerAccountPage(),
           binding: DesignerAccountBinding(),
         ),
+        GetPage(
+          name: Pages.category.value,
+          page: () => CategoryPage(),
+          binding: CategoryBinding(),
+        ),
+        GetPage(
+          name: Pages.orderHistory.value,
+          page: () => OrderHistoryPage(),
+          binding: OrderHistoryBinding(),
+        ),
       ];
 }
 
@@ -115,6 +129,7 @@ enum Pages {
   auth,
   main,
   admin,
+  category,
   designerdesign,
   userdesign,
   home,
@@ -126,6 +141,7 @@ enum Pages {
   addDesign,
   myDesignes,
   accountDesigner,
+  orderHistory,
 }
 
 extension PagesExtension on Pages {
@@ -161,6 +177,10 @@ extension PagesExtension on Pages {
         return '/myDesignes';
       case Pages.accountDesigner:
         return '/accountDesigner';
+      case Pages.category:
+        return '/category';
+      case Pages.orderHistory:
+        return '/orderHistory';
       default:
         throw 'unnamed route';
     }
@@ -200,6 +220,10 @@ abstract class Navigation {
         return Pages.myDesignes;
       case '/accountDesigner':
         return Pages.accountDesigner;
+      case '/category':
+        return Pages.category;
+      case '/orderHistory':
+        return Pages.orderHistory;
       default:
         return null;
     }

@@ -133,13 +133,6 @@ class DesignDetails extends StatelessWidget {
                       },
                     ),
                     15.r.verticalSpace,
-                    // _.colorHex.isEmpty
-                    //     ? SizedBox()
-                    //     : Text(
-                    //         _.colorHex.join(', '),
-                    //         style: poppins_xxSamll_black,
-                    //       ),
-                    // 15.r.verticalSpace,
                     CustomButton(
                       color: blue,
                       text: 'Upload picture',

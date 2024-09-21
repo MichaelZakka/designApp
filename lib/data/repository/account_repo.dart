@@ -29,4 +29,11 @@ class AccountRepo {
       "Authorization": "Bearer ${initController.token}"
     });
   }
+
+  orderHistory()async{
+    return await http.getRequest(USER_INFO, {},{
+        "Accept": "application/json",
+      "Authorization": "Bearer ${initController.token}"
+    });
+  }
 }

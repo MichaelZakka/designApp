@@ -1,23 +1,33 @@
+import 'package:design_app/data/constant/constant.dart';
+import 'package:design_app/data/models/body/order_body.dart';
+import 'package:design_app/data/models/response/design_response.dart';
 import 'package:design_app/res/colors.dart';
-import 'package:design_app/res/images.dart';
 import 'package:design_app/res/styles.dart';
 import 'package:design_app/views/design/user/controller.dart';
 import 'package:design_app/widgets/appBar/custom_appbar.dart';
 import 'package:design_app/widgets/buttons/custom_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_pannable_rating_bar/flutter_pannable_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class UserDesignPage extends StatelessWidget {
-  const UserDesignPage({super.key});
+  final DesignResponse? product;
+  const UserDesignPage({super.key, this.product});
 
   @override
   Widget build(BuildContext context) {
+    getSizes() {
+      List<String> sizes = [];
+      for (int i = 0; i < product!.sizes!.length; i++) {
+        sizes.add(product!.sizes![i].size!);
+      }
+      return sizes;
+    }
+
     return GetBuilder<UserDesignContoller>(builder: (_) {
       return Scaffold(
-        appBar:  CustomAppBar(
-          title: 'test',
+        appBar: const CustomAppBar(
+          title: 'Design Details',
         ),
         body: Center(
           child: SizedBox(
@@ -26,39 +36,141 @@ class UserDesignPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.asset(
-                    DRESS,
+                  Image.network(
+                    baseImageUrl + product!.image!,
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
                   15.r.verticalSpace,
                   Text(
-                    'Designer name',
+                    'Design name',
                     style: poppins_medium_black_bold,
                   ),
                   15.r.verticalSpace,
                   Text(
-                      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-                      style: poppins_xSamll_black),
+                    '${product!.name}',
+                    style: poppins_samll_black,
+                  ),
                   15.r.verticalSpace,
-                  Align(
-                    alignment: Alignment.center,
-                    child: PannableRatingBar(
-                      rate: _.rating.value,
-                      items: List.generate(
-                          5,
-                          (index) => RatingWidget(
-                                selectedColor: Colors.yellowAccent[700]!,
-                                unSelectedColor: Colors.grey,
-                                child: const Icon(
-                                  Icons.star,
-                                  size: 48,
-                                ),
-                              )),
-                      onChanged: (value) {
-                        _.updateRating(value);
+                  Text(
+                    'Description',
+                    style: poppins_medium_black_bold,
+                  ),
+                  15.r.verticalSpace,
+                  Text('${product!.description}', style: poppins_xSamll_black),
+                  15.r.verticalSpace,
+                  Text(
+                    'Available Sizes',
+                    style: poppins_medium_black_bold,
+                  ),
+                  SizedBox(
+                    height: 30,
+                    child: GridView.builder(
+                      itemCount: product!.sizes!.length,
+                      scrollDirection: Axis.horizontal,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        childAspectRatio: 0.5,
+                        crossAxisCount: 1,
+                        mainAxisSpacing: 10,
+                      ),
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            _.updateSizeIndex(index);
+                          },
+                          child: Container(
+                            width: 30,
+                            height: 10,
+                            decoration: BoxDecoration(
+                                border: _.selectedSizeIndex.value == index
+                                    ? Border.all(color: black, width: 2)
+                                    : Border.all(color: white),
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Center(
+                              child: Text(
+                                product!.sizes![index].size!,
+                                style: poppins_xSamll_black,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        );
                       },
                     ),
+                  ),
+
+                  Text(
+                    'Available Colors',
+                    style: poppins_medium_black_bold,
+                  ),
+                  15.r.verticalSpace,
+                  SizedBox(
+                    height: 45,
+                    child: GridView.builder(
+                      itemCount: product!.colors!.length,
+                      scrollDirection: Axis.horizontal,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 1,
+                        mainAxisSpacing: 10,
+                      ),
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            _.updateColorIndex(index);
+                          },
+                          child: Container(
+                            width: 5,
+                            height: 5,
+                            decoration: BoxDecoration(
+                              border: _.selectedColorIndex.value == index
+                                  ? Border.all(color: black, width: 2)
+                                  : Border.all(color: white),
+                              shape: BoxShape.circle,
+                              color: _.hexToColor(product!.colors![index].hex!),
+                            ),
+                            child: _.selectedColorIndex.value == index
+                                ? const Icon(
+                                    Icons.check,
+                                    color: white,
+                                  )
+                                : const SizedBox(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  15.r.verticalSpace,
+                  SizedBox(
+                    width: Get.width * 0.2,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Icon(
+                          Icons.star,
+                          color: Colors.yellowAccent[700],
+                          size: 48,
+                        ),
+                        Text(
+                          product!.averageRate.toString(),
+                          style: poppins_samll_black,
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  /////////////////////////////////////////////////////////////////
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      
+                      Text(
+                        _.rating.toString(),
+                        style: poppins_samll_black,
+                      )
+                    ],
                   ),
                   15.r.verticalSpace,
                   Align(
@@ -69,6 +181,38 @@ class UserDesignPage extends StatelessWidget {
                       textStyle: poppins_samll_white,
                       height: 45,
                       width: 350.r,
+                      ontap: () {
+                        Get.defaultDialog(
+                            confirm: CustomButton(
+                              color: pink,
+                              text: 'Yes',
+                              textStyle: poppins_xxSamll_white,
+                              ontap: () {
+                                _.orderRequest(OrderBody(
+                                    designId: product!.id.toString(),
+                                    colorId: product!
+                                        .colors![_.selectedColorIndex.value].id
+                                        .toString(),
+                                    sizeId: product!
+                                        .sizes![_.selectedSizeIndex.value].id
+                                        .toString()));
+                              },
+                            ),
+                            content: Text(
+                              'Are you sure you want to make an order on this design ?',
+                              style: poppins_xSamll_black,
+                            ),
+                            cancel: CustomButton(
+                              color: pink,
+                              text: 'No',
+                              textStyle: poppins_xxSamll_white,
+                              ontap: () {
+                                Get.back();
+                              },
+                            ),
+                            contentPadding:
+                                const EdgeInsets.only(left: 25, bottom: 15));
+                      },
                     ),
                   ),
                   15.r.verticalSpace,

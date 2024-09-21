@@ -31,9 +31,17 @@ TextStyle poppins_xxSamll_black = TextStyle(
   fontFamily: 'Poppins',
   color: black,
 );
+TextStyle poppins_xSamll_blue_underlined = TextStyle(
+  fontSize: xSmall,
+  fontFamily: 'Poppins',
+  decoration: TextDecoration.underline,
+  color: blue,
+
+);
 TextStyle poppins_xSamll_grey = TextStyle(
   fontSize: xSmall,
   fontFamily: 'Poppins',
+  
   color: grey,
 );
 TextStyle poppins_xSamll_red_bold = TextStyle(

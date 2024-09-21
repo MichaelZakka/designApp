@@ -1,5 +1,6 @@
-import 'package:design_app/data/models/response/product_response.dart';
-import 'package:design_app/views/home/widgets/design_widget.dart';
+import 'package:design_app/res/styles.dart';
+import 'package:design_app/views/my_designes/controller.dart';
+import 'package:design_app/views/my_designes/widgets/myDesign.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,29 +9,32 @@ class MyDesignesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox(
-        width: Get.width * 0.9,
-        child: GridView.builder(
-          itemCount: 20,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 45,
-              mainAxisSpacing: 45,
-              childAspectRatio: 0.7),
-          itemBuilder: (context, index) {
-            return DesignWidget(
-              product: ProductResponse(
-                averageRate: 2,
-                categoryId: 'Men',
-                price: '180.0\$',
-                name: 'T-shirt',
-                description: 'This is a T-shirt',
+    return GetBuilder<MyDesignesController>(builder: (_) {
+      return _.designes.isEmpty
+          ? Center(
+              child: Text(
+                'You haven\'t create any designs yet',
+                textAlign: TextAlign.center,
+                style: poppins_medium_black,
+              ),
+            )
+          : Center(
+              child: SizedBox(
+                width: Get.width * 0.9,
+                height: Get.height,
+                child: GridView.builder(
+                  itemCount: _.designes.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 45,
+                      mainAxisSpacing: 45,
+                      childAspectRatio: 0.7),
+                  itemBuilder: (context, index) {
+                    return MyDesignWidget(product: _.designes[index]);
+                  },
+                ),
               ),
             );
-          },
-        ),
-      ),
-    );
+    });
   }
 }

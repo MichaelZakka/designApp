@@ -1,5 +1,6 @@
 import 'package:design_app/data/models/body/changepassword_body.dart';
 import 'package:design_app/data/models/body/updateUser_body.dart';
+import 'package:design_app/data/models/response/orderHistory_response.dart';
 import 'package:design_app/data/repository/account_repo.dart';
 import 'package:design_app/data/repository/auth_repo.dart';
 import 'package:design_app/init_controller/app_storage.dart';
@@ -14,6 +15,7 @@ class AccountController extends GetxController {
   String email = '';
   String address = '';
   String mobile = '';
+  List<OrderHistoryResponse> orders = [];
 
   RxBool isLoading = false.obs;
 
@@ -47,6 +49,13 @@ class AccountController extends GetxController {
     }
   }
 
+  fillData() {
+    newEmail = TextEditingController(text: email);
+    newUsername = TextEditingController(text: username);
+    newAddress = TextEditingController(text: address);
+    newMobile = TextEditingController(text: mobile);
+  }
+
   deleteAccountRequest() async {
     try {
       accountRepo.deleteAccount().then((value) {
@@ -71,8 +80,10 @@ class AccountController extends GetxController {
         print(value);
         if (value.status == 'success') {
           validation(value.message, green);
+          loadingToggle();
           Get.offAllNamed('/main');
         } else {
+          loadingToggle();
           validation('Something went wrong , Please try again', red);
         }
       });
@@ -119,12 +130,33 @@ class AccountController extends GetxController {
     }
   }
 
+  orderHistoryRequest() async {
+    try {
+      accountRepo.orderHistory().then((value) {
+        if (value.status == 'success') {
+          print('orderHistory');
+          if (value.data["orders"].length > 0) {
+            for (int i = 0; i < value.data["orders"].length; i++) {
+              print(value.data['orders'].length);
+              orders
+                  .add(OrderHistoryResponse.fromJson(value.data["orders"][i]));
+            }
+          }
+        }
+      });
+    } catch (e) {
+      print('orderHistoryRequest exception');
+    }
+  }
+
   @override
   void onInit() async {
     username = await AppStorage.getPref('username');
     email = await AppStorage.getPref('email');
     address = await AppStorage.getPref('address');
     mobile = await AppStorage.getPref('mobile');
+    orderHistoryRequest();
+    fillData();
     super.onInit();
   }
 }

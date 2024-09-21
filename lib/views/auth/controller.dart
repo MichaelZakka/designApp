@@ -8,6 +8,7 @@ import 'package:design_app/res/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 
 class AuthController extends GetxController {
   AuthRepo authRepo = AuthRepo();
@@ -28,6 +29,13 @@ class AuthController extends GetxController {
   List<String> groupValue = ['User', 'Designer'];
 
   RxInt selectedValue = 0.obs;
+
+  RxBool isVisible = false.obs;
+
+  visibilityToggle() {
+    isVisible.toggle();
+    update();
+  }
 
   signupRequest() async {
     try {
@@ -74,9 +82,11 @@ class AuthController extends GetxController {
           AppStorage.savePref('address', value.data['user']['address']);
           AppStorage.savePref('mobile', value.data['user']['mobile']);
           initController.token = value.data['token'];
-          if (value.data['user']['is_designer'] == 0) {
+          if (value.data['user']['email'].contains('@admin.com')) {
+            Get.offAllNamed('/admin');
+          } else if (value.data['user']['is_designer'] == 0) {
             Get.offAllNamed('/main');
-          }else if(value.data['user']['is_designer'] == 1){
+          } else if (value.data['user']['is_designer'] == 1) {
             Get.offAllNamed('/designerHome');
           }
         } else {

@@ -38,6 +38,7 @@ class AuthWidget extends StatelessWidget {
                   AuthTextfield(
                     hint: 'Password',
                     tec: _.lPassword,
+                    isObsecure: true,
                   ),
                   15.r.verticalSpace,
                   _.isLoading.value
@@ -52,19 +53,19 @@ class AuthWidget extends StatelessWidget {
                           color: light_pink,
                           width: Get.width * 0.6,
                           ontap: () {
-                            // if (_.lEmail.text.isEmpty) {
-                            //   _.validation('Email cannot be empty', red);
-                            // } else if (_.lPassword.text.isEmpty) {
-                            //   _.validation('Password cannot be empty', red);
-                            // } else {
-                            //   _.loadingToggle();
-                            //   _.loginRequest(LoginBody(
-                            //       email: _.lEmail.text,
-                            //       password: _.lPassword.text));
-                            // }
-                            if(_.lEmail.text == 'admin'){
-                              Get.offAllNamed('/admin');
+                            if (_.lEmail.text.isEmpty) {
+                              _.validation('Email cannot be empty', red);
+                            } else if (_.lPassword.text.isEmpty) {
+                              _.validation('Password cannot be empty', red);
+                            } else {
+                              _.loadingToggle();
+                              _.loginRequest(LoginBody(
+                                  email: _.lEmail.text,
+                                  password: _.lPassword.text));
                             }
+                            // if (_.lEmail.text == 'admin') {
+                            //   Get.offAllNamed('/admin');
+                            // }
                           },
                           textStyle: poppins_xSamll_white_bold,
                         ),
@@ -128,11 +129,13 @@ class AuthWidget extends StatelessWidget {
                   AuthTextfield(
                     hint: 'Password',
                     tec: _.rPassword,
+                    isObsecure: true,
                   ),
                   15.r.verticalSpace,
                   AuthTextfield(
                     hint: 'Confirm Password',
                     tec: _.rConfirmPass,
+                    isObsecure: true,
                   ),
                   15.r.verticalSpace,
                   AuthTextfield(

@@ -1,6 +1,6 @@
-import 'package:design_app/data/models/response/product_response.dart';
-import 'package:design_app/views/auth/widgets/auth_textfield.dart';
+import 'package:design_app/res/styles.dart';
 import 'package:design_app/views/explore/controller.dart';
+import 'package:design_app/views/explore/widgets/search_textfield.dart';
 import 'package:design_app/views/home/widgets/design_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -21,7 +21,8 @@ class ExplorePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 15.r.verticalSpace,
-                AuthTextfield(
+                SearchTextfield(
+                  tec: _.searchInput,
                   hint: 'Search',
                   width: Get.width * 0.9,
                 ),
@@ -29,25 +30,30 @@ class ExplorePage extends StatelessWidget {
                 SizedBox(
                   width: Get.width * 0.9,
                   height: 600.r,
-                  child: GridView.builder(
-                    itemCount: 20,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 45,
-                            mainAxisSpacing: 45,
-                            childAspectRatio: 0.7),
-                    itemBuilder: (context, index) {
-                      return DesignWidget(
-                        product: ProductResponse(
-                          averageRate: 2,
-                          categoryId: 'Men',
-                          price: '180.0\$',
-                          name: 'T-shirt',description: 'This is a T-shirt',
+                  child: _.products.isEmpty
+                      ? Center(
+                          child: Column(
+                            children: [
+                              150.r.verticalSpace,
+                              Text(
+                                'No Designs to display',
+                                style: poppins_samll_black,
+                              ),
+                            ],
+                          ),
+                        )
+                      : GridView.builder(
+                          itemCount: _.productsToDisplay.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 45,
+                                  mainAxisSpacing: 45,
+                                  childAspectRatio: 0.7),
+                          itemBuilder: (context, index) {
+                            return DesignWidget(product: _.productsToDisplay[index]);
+                          },
                         ),
-                      );
-                    },
-                  ),
                 ),
               ],
             ),

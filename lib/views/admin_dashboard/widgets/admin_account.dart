@@ -26,89 +26,89 @@ class AdminAccountPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   15.r.verticalSpace,
-                  Text('_.username', style: poppins_samll_black),
+                  Text(_.username, style: poppins_samll_black),
                   15.r.verticalSpace,
-                  Text('_.email', style: poppins_samll_black),
+                  Text(_.email, style: poppins_samll_black),
                   15.r.verticalSpace,
-                  Text('_.address', style: poppins_samll_black),
+                  Text(_.address, style: poppins_samll_black),
                   15.r.verticalSpace,
-                  Text('_.mobile', style: poppins_samll_black),
+                  Text(_.mobile, style: poppins_samll_black),
                   15.r.verticalSpace,
                   CustomButton(
-                        text: 'Edit Account',
-                        color: pink,
-                        textStyle: poppins_xSamll_white,
-                        width: double.infinity,
-                        ontap: () {
-                          Get.bottomSheet(BottomSheet(
-                            onClosing: () {},
-                            builder: (context) {
-                              return Dialog(
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Edit your account',
-                                      style: poppins_xSamll_black_bold,
-                                    ),
-                                    15.r.verticalSpace,
-                                     AuthTextfield(
-                                      hint: 'Username',
-                                      width: double.infinity,
-                                      tec: _.newUsername,
-                                    ),
-                                    15.r.verticalSpace,
-                                      AuthTextfield(
-                                        hint: 'Mobile',
-                                        width: double.infinity,
-                                        tec: _.newMobile,
-                                        textInputType: TextInputType.number,
-                                      ),
-                                      15.r.verticalSpace,
-                                      AuthTextfield(
-                                        hint: 'Address',
-                                        width: double.infinity,
-                                        tec: _.newAddress,
-                                      ),
-                                      50.r.verticalSpace,
-                                      CustomButton(
-                                        color: light_pink,
-                                        text: 'Update',
-                                        textStyle: poppins_xxSamll_white,
-                                        width: Get.width * 0.3,
-                                        ontap: () {
-                                          if (_.newUsername.text == '') {
-                                            _.validation(
-                                                'Username cannot be empty',
-                                                red);
-                                          } else if (_.newEmail.text == '') {
-                                            _.validation(
-                                                'Email cannot be empty', red);
-                                          } else if (_.newMobile.text == '') {
-                                            _.validation(
-                                                'Moblie cannot be empty', red);
-                                          } else if (!(_.newEmail.text
-                                                  .contains('@') ||
-                                              _.newEmail.text.contains('.'))) {
-                                            _.validation(
-                                                'The email field must be a valid email address',
-                                                red);
-                                          } else if (_.newAddress.text == '') {
-                                            _.validation(
-                                                'Address cannot be empty', red);
-                                          } else {
-                                            _.updateAccountRequest();
-                                          }
-                                        },
-                                      ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ));
+                    text: 'Edit Account',
+                    color: pink,
+                    textStyle: poppins_xSamll_white,
+                    width: double.infinity,
+                    ontap: () {
+                      Get.bottomSheet(BottomSheet(
+                        onClosing: () {},
+                        builder: (context) {
+                          return SingleChildScrollView(
+                            child: Dialog(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Edit your account',
+                                    style: poppins_xSamll_black_bold,
+                                  ),
+                                  15.r.verticalSpace,
+                                  AuthTextfield(
+                                    hint: 'Username',
+                                    width: double.infinity,
+                                    tec: _.newUsername,
+                                  ),
+                                  15.r.verticalSpace,
+                                  AuthTextfield(
+                                    hint: 'Mobile',
+                                    width: double.infinity,
+                                    tec: _.newMobile,
+                                    textInputType: TextInputType.number,
+                                  ),
+                                  15.r.verticalSpace,
+                                  AuthTextfield(
+                                    hint: 'Address',
+                                    width: double.infinity,
+                                    tec: _.newAddress,
+                                  ),
+                                  50.r.verticalSpace,
+                                  CustomButton(
+                                    color: light_pink,
+                                    text: 'Update',
+                                    textStyle: poppins_xxSamll_white,
+                                    width: Get.width * 0.3,
+                                    ontap: () {
+                                      if (_.newUsername.text == '') {
+                                        _.validation(
+                                            'Username cannot be empty', red);
+                                      } else if (_.newEmail.text == '') {
+                                        _.validation(
+                                            'Email cannot be empty', red);
+                                      } else if (_.newMobile.text == '') {
+                                        _.validation(
+                                            'Moblie cannot be empty', red);
+                                      } else if (!(_.newEmail.text
+                                              .contains('@') ||
+                                          _.newEmail.text.contains('.'))) {
+                                        _.validation(
+                                            'The email field must be a valid email address',
+                                            red);
+                                      } else if (_.newAddress.text == '') {
+                                        _.validation(
+                                            'Address cannot be empty', red);
+                                      } else {
+                                        _.updateAccountRequest();
+                                      }
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
                         },
-                      ),
+                      ));
+                    },
+                  ),
                   15.r.verticalSpace,
                   CustomButton(
                     text: 'Change Password',
@@ -119,58 +119,63 @@ class AdminAccountPage extends StatelessWidget {
                       Get.bottomSheet(BottomSheet(
                         onClosing: () {},
                         builder: (context) {
-                          return Dialog(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Change your password',
-                                  style: poppins_xSamll_black_bold,
-                                ),
-                                15.r.verticalSpace,
-                                AuthTextfield(
-                                  hint: 'Old Password',
-                                  width: double.infinity,
-                                  tec: _.currentPass,
-                                ),
-                                15.r.verticalSpace,
-                                AuthTextfield(
-                                  hint: 'New Password',
-                                  width: double.infinity,
-                                  tec: _.newPass,
-                                ),
-                                15.r.verticalSpace,
-                                AuthTextfield(
-                                  hint: 'New Password Confirmation',
-                                  width: double.infinity,
-                                  tec: _.confirmNewPass,
-                                ),
-                                50.r.verticalSpace,
-                                CustomButton(
-                                  color: light_pink,
-                                  text: 'Confirm',
-                                  textStyle: poppins_xxSamll_white,
-                                  width: Get.width * 0.3,
-                                  ontap: () {
-                                    if (_.currentPass.text == '') {
-                                      _.validation(
-                                          'Please enter your current Password',
-                                          red);
-                                    } else if (_.newPass.text == '') {
-                                      _.validation(
-                                          'Please enter your new Password',
-                                          red);
-                                    } else if (_.newPass.text !=
-                                        _.confirmNewPass.text) {
-                                      _.validation(
-                                          'Password confirmation doesn\'t match',
-                                          red);
-                                    } else {
-                                      _.changePasswordRequest();
-                                    }
-                                  },
-                                ),
-                              ],
+                          return SingleChildScrollView(
+                            child: Dialog(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Change your password',
+                                    style: poppins_xSamll_black_bold,
+                                  ),
+                                  15.r.verticalSpace,
+                                  AuthTextfield(
+                                    hint: 'Old Password',
+                                    width: double.infinity,
+                                    tec: _.currentPass,
+                                    isObsecure: true,
+                                  ),
+                                  15.r.verticalSpace,
+                                  AuthTextfield(
+                                    hint: 'New Password',
+                                    width: double.infinity,
+                                    isObsecure: true,
+                                    tec: _.newPass,
+                                  ),
+                                  15.r.verticalSpace,
+                                  AuthTextfield(
+                                    hint: 'New Password Confirmation',
+                                    width: double.infinity,
+                                    tec: _.confirmNewPass,
+                                    isObsecure: true,
+                                  ),
+                                  50.r.verticalSpace,
+                                  CustomButton(
+                                    color: light_pink,
+                                    text: 'Confirm',
+                                    textStyle: poppins_xxSamll_white,
+                                    width: Get.width * 0.3,
+                                    ontap: () {
+                                      if (_.currentPass.text == '') {
+                                        _.validation(
+                                            'Please enter your current Password',
+                                            red);
+                                      } else if (_.newPass.text == '') {
+                                        _.validation(
+                                            'Please enter your new Password',
+                                            red);
+                                      } else if (_.newPass.text !=
+                                          _.confirmNewPass.text) {
+                                        _.validation(
+                                            'Password confirmation doesn\'t match',
+                                            red);
+                                      } else {
+                                        _.changePasswordRequest();
+                                      }
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
                           );
                         },

@@ -114,11 +114,13 @@ class AddDesignController extends GetxController {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
+      pickedImage = pickedFile.path;
       image = File(pickedFile.path);
       print(image);
     } else {
       print('No image selected.');
     }
+    update();
   }
 
   // Future<void> pickImageFromCamera() async {

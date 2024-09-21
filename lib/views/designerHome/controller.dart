@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class DesignerHomeController extends GetxController{
-
-    final pageController = PageController(initialPage: 0);
+class DesignerHomeController extends GetxController {
+  final pageController = PageController(initialPage: 0);
   RxString title = 'My Designes'.obs;
 
   RxInt pageIndex = 0.obs;
@@ -16,10 +15,8 @@ class DesignerHomeController extends GetxController{
     update();
   }
 
-  updateTitle(String newTitle){
+  updateTitle(String newTitle) {
     title.value = newTitle;
     update();
   }
-
-  
 }

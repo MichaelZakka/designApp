@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: 250.r,
+              height: 200.r,
               color: black,
               child: Swiper(
                 itemBuilder: (BuildContext context, int index) {
@@ -46,11 +46,12 @@ class HomePage extends StatelessWidget {
                       )
                     : SizedBox(
                         height: Get.height * 0.7,
+                        width: Get.width*0.9,
                         child: ListView.builder(
                           itemCount: _.homePageResponse.length,
                           itemBuilder: (context, index) {
                             return CategoryDisplay(
-                                category: _.homePageResponse[index].name!);
+                                category: _.homePageResponse[index]);
                           },
                         ),
                       )
@@ -63,15 +64,6 @@ class HomePage extends StatelessWidget {
                       ),
                     ],
                   )),
-            // IconButton(
-            //     onPressed: () {
-            //       // print(_.homePageResponse[0].data![0]);
-            //     },
-            //     icon: Icon(Icons.ad_units))
-            // const CategoryDisplay(),
-            // const CategoryDisplay(),
-            // const CategoryDisplay(),
-            // 15.r.verticalSpace
           ],
         ),
       );

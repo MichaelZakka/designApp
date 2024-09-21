@@ -36,7 +36,8 @@ class AuthPage extends StatelessWidget {
                   child: AuthWidget(
                     isLoging: _.login.value,
                   ),
-                )
+                ),
+                  15.r.verticalSpace
               ],
             ),
           ),
