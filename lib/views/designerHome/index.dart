@@ -1,6 +1,7 @@
 import 'package:design_app/views/addDesign/index.dart';
 import 'package:design_app/views/designerHome/controller.dart';
 import 'package:design_app/views/designerHome/widgets/designer_navigation_bar.dart';
+import 'package:design_app/views/designerOrders/index.dart';
 import 'package:design_app/views/designer_account/index.dart';
 import 'package:design_app/views/my_designes/index.dart';
 import 'package:design_app/widgets/appBar/custom_appbar.dart';
@@ -25,6 +26,7 @@ class DesignerHomePage extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 MyDesignesPage(),
+                DesignerOrderPage(),
                 AddDesignPage(),
                 DesignerAccountPage()
               ],

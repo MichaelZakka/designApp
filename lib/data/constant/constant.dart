@@ -1,5 +1,5 @@
-const String baseUrl = 'http://192.168.64.125:8000';
-const String baseImageUrl = 'http://192.168.64.125:8000/storage/';
+const String baseUrl = 'http://192.168.68.125:8000';
+const String baseImageUrl = 'http://192.168.68.125:8000/storage/';
 
 /////////////////////////////////////headers/////////////////////////////////////
 
@@ -39,10 +39,13 @@ const String ACCEPT_DESIGN = '$baseUrl/api/admin/accept-design';
 /////////////////////////////////////design/////////////////////////////////////
 
 const String GET_DESIGN = '$baseUrl/api/design';
+const String GET_DESIGNER = '$baseUrl/api/designer';
+const String CHANGE_ORDER_STATUS = '$baseUrl/api/change-status';
 
 /////////////////////////////////////design/////////////////////////////////////
 
 const String ORDER = '$baseUrl/api/order';
+const String SORTED_DESIGNS = '$baseUrl/api/sorted-designs';
 
 /////////////////////////////////////search/////////////////////////////////////
 

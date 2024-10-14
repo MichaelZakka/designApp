@@ -27,14 +27,19 @@ class OrderHistoryPage extends StatelessWidget {
                       ),
                     ),
                   )
-                : ListView.builder(
-                    itemCount: _.orders.length,
-                    itemBuilder: (context, index) {
-                      return DesignListTile(
-                        order: _.orders[index],
-                        index: index,
-                      );
-                    })),
+                : Center(
+                  child: SizedBox(
+                    width: Get.width*0.9,
+                    child: ListView.builder(
+                        itemCount: _.orders.length,
+                        itemBuilder: (context, index) {
+                          return DesignListTile(
+                            order: _.orders[index],
+                            index: index,
+                          );
+                        }),
+                  ),
+                )),
       );
     });
   }

@@ -16,18 +16,24 @@ class HomePage extends StatelessWidget {
       return SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              height: 200.r,
-              color: black,
-              child: Swiper(
-                itemBuilder: (BuildContext context, int index) {
-                  return Image.asset(
-                    _.images[index],
-                    fit: BoxFit.fill,
-                  );
-                },
-                itemCount: _.images.length,
-                pagination: const SwiperPagination(),
+            GestureDetector(
+              onTap: (){
+                print(_.homePageResponse.length);
+                
+              },
+              child: Container(
+                height: 200.r,
+                color: black,
+                child: Swiper(
+                  itemBuilder: (BuildContext context, int index) {
+                    return Image.asset(
+                      _.images[index],
+                      fit: BoxFit.fill,
+                    );
+                  },
+                  itemCount: _.images.length,
+                  pagination: const SwiperPagination(),
+                ),
               ),
             ),
             15.r.verticalSpace,

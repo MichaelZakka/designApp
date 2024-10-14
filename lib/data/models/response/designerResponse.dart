@@ -1,60 +1,64 @@
-class OrderHistoryResponse {
+class DesignerResponse {
   int? id;
-  int? userId;
-  int? designId;
-  String? price;
-  String? color;
-  String? size;
-  String? status;
+  String? name;
+  String? mobile;
+  String? email;
+  String? emailVerifiedAt;
+  int? isDesigner;
+  String? address;
   String? createdAt;
   String? updatedAt;
-  Design? design;
+  List<Designs>? designs;
 
-  OrderHistoryResponse(
+  DesignerResponse(
       {this.id,
-      this.userId,
-      this.designId,
-      this.price,
-      this.color,
-      this.status,
-      this.size,
+      this.name,
+      this.mobile,
+      this.email,
+      this.emailVerifiedAt,
+      this.isDesigner,
+      this.address,
       this.createdAt,
       this.updatedAt,
-      this.design});
+      this.designs});
 
-  OrderHistoryResponse.fromJson(Map<String, dynamic> json) {
+  DesignerResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    userId = json['user_id'];
-    designId = json['design_id'];
-    status = json['status'];
-    price = json['price'];
-    color = json['color'];
-    size = json['size'];
+    name = json['name'];
+    mobile = json['mobile'];
+    email = json['email'];
+    emailVerifiedAt = json['email_verified_at'];
+    isDesigner = json['is_designer'];
+    address = json['address'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    design =
-        json['design'] != null ? new Design.fromJson(json['design']) : null;
+    if (json['designs'] != null) {
+      designs = <Designs>[];
+      json['designs'].forEach((v) {
+        designs!.add(new Designs.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['design_id'] = this.designId;
-    data['price'] = this.price;
-    data['color'] = this.color;
-    data['size'] = this.size;
-    data['status'] = this.status;
+    data['name'] = this.name;
+    data['mobile'] = this.mobile;
+    data['email'] = this.email;
+    data['email_verified_at'] = this.emailVerifiedAt;
+    data['is_designer'] = this.isDesigner;
+    data['address'] = this.address;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
-    if (this.design != null) {
-      data['design'] = this.design!.toJson();
+    if (this.designs != null) {
+      data['designs'] = this.designs!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Design {
+class Designs {
   int? id;
   int? designerId;
   int? categoryId;
@@ -70,7 +74,7 @@ class Design {
   int? averageRate;
   int? userRate;
 
-  Design(
+  Designs(
       {this.id,
       this.designerId,
       this.categoryId,
@@ -86,7 +90,7 @@ class Design {
       this.averageRate,
       this.userRate});
 
-  Design.fromJson(Map<String, dynamic> json) {
+  Designs.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     designerId = json['designer_id'];
     categoryId = json['category_id'];

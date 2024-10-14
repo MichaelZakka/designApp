@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:design_app/data/constant/constant.dart';
 import 'package:design_app/data/models/body/reviewDesign_body.dart';
 import 'package:design_app/data/models/response/orderHistory_response.dart';
 import 'package:design_app/res/colors.dart';
+import 'package:design_app/res/images.dart';
 import 'package:design_app/res/styles.dart';
 import 'package:design_app/views/orderHistory/controller.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +12,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class DesignListTile extends StatelessWidget {
-  const DesignListTile({super.key, this.order, required this.index});
+  const DesignListTile({
+    super.key,
+    this.order,
+    required this.index,
+  });
   final OrderHistoryResponse? order;
   final int index;
 
@@ -23,12 +29,15 @@ class DesignListTile extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                  baseImageUrl + order!.design!.image!,
-                  width: 150,
+                child: CachedNetworkImage(
+                  imageUrl: baseImageUrl + order!.design!.image!,
+                  placeholder: (context, url) => Image.asset(CACHED_DRESS),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                   fit: BoxFit.fill,
+                  width: 150,
                 ),
               ),
+              10.r.horizontalSpace,
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -51,7 +60,12 @@ class DesignListTile extends StatelessWidget {
                   ),
                   10.r.verticalSpace,
                   Text(
-                    ' ${order!.price}',
+                    ' ${order!.price} \$',
+                    style: poppins_xSamll_grey,
+                  ),
+                  10.r.verticalSpace,
+                  Text(
+                    '${order!.status}',
                     style: poppins_xSamll_grey,
                   ),
                   10.r.verticalSpace,

@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:design_app/data/constant/constant.dart';
 import 'package:design_app/data/models/body/order_body.dart';
 import 'package:design_app/data/models/response/design_response.dart';
 import 'package:design_app/res/colors.dart';
+import 'package:design_app/res/images.dart';
 import 'package:design_app/res/styles.dart';
 import 'package:design_app/views/design/user/controller.dart';
 import 'package:design_app/views/designer_info/binding.dart';
@@ -29,8 +31,14 @@ class UserDesignPage extends StatelessWidget {
     return GetBuilder<UserDesignContoller>(builder: (_) {
       return Scaffold(
         floatingActionButton: GestureDetector(
-          onTap: (){
-            Get.to(()=> DesignerInfoPage(email: 'test@test.com',mobile: '+963 115 566 870',) , binding: DesignerInfoBinding());
+          onTap: () async {
+            await _
+                .getDesignerRequest(product!.designerId.toString())
+                .then((value) {
+              print(value);
+              Get.to(() => DesignerInfoPage(designer: value,),
+                  binding: DesignerInfoBinding());
+            });
           },
           child: Container(
             width: 60,
@@ -54,9 +62,15 @@ class UserDesignPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.network(
-                    baseImageUrl + product!.image!,
-                    width: double.infinity,
+                  // Image.network(
+                  //   baseImageUrl + product!.image!,
+                  //   width: double.infinity,
+                  //   fit: BoxFit.cover,
+                  // ),
+                  CachedNetworkImage(
+                    imageUrl: baseImageUrl + product!.image!,
+                    placeholder: (context, url) => Image.asset(CACHED_DRESS),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
                     fit: BoxFit.cover,
                   ),
                   15.r.verticalSpace,

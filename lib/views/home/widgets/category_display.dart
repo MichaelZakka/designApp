@@ -24,8 +24,10 @@ class CategoryDisplay extends StatelessWidget {
               style: poppins_samll_black,
             ),
             GestureDetector(
-              onTap: (){
-                Get.to(()=> CategoryPage(category: category,));
+              onTap: () {
+                Get.to(() => CategoryPage(
+                      category: category,
+                    ));
               },
               child: Text(
                 ' See all',
@@ -41,8 +43,7 @@ class CategoryDisplay extends StatelessWidget {
             itemCount: category.designs!.length,
             scrollDirection: Axis.horizontal,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: 1.5,
-                crossAxisCount: 1),
+                mainAxisSpacing: 15, childAspectRatio: 1.8, crossAxisCount: 1),
             itemBuilder: (context, index) {
               return DesignWidget(product: category.designs![index]);
             },

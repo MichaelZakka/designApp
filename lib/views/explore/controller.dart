@@ -44,8 +44,6 @@ class ExploreController extends GetxController {
           design.name!.contains(query) ||
           design.description!.contains(query) ||
           design.price!.contains(query) ||
-          (int.parse(design.price!) - int.parse(query)) < 200 ||
-          (int.parse(query) - int.parse(design.price!)) < 200 ||
           design.categoryId == categoryIds[query] ||
           design.categoryId == categoryIdsLowercase[query]));
     }

@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:design_app/data/constant/constant.dart';
 import 'package:design_app/data/models/response/design_response.dart';
 import 'package:design_app/res/colors.dart';
+import 'package:design_app/res/images.dart';
 import 'package:design_app/res/styles.dart';
 import 'package:design_app/views/my_designes/controller.dart';
 import 'package:design_app/widgets/buttons/custom_button.dart';
@@ -80,11 +82,17 @@ class MyDesignPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.network(
-                      baseImageUrl + design.image!,
-                      width: double.infinity,
-                      fit: BoxFit.fitHeight,
-                    ),
+                    // Image.network(
+                    //   baseImageUrl + design.image!,
+                    //   width: double.infinity,
+                    //   fit: BoxFit.fitHeight,
+                    // ),
+                    CachedNetworkImage(
+                    imageUrl: baseImageUrl +design.image!,
+                    placeholder: (context, url) => Image.asset(CACHED_DRESS),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    fit: BoxFit.cover,
+                  ),
                     15.r.verticalSpace,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

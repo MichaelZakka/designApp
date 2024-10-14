@@ -15,6 +15,7 @@ class HomeController extends GetxController {
   List<HomepageResponse> homePageResponse = [];
   RxBool isEmpty = true.obs;
   List<ProductResponse> allProduts = [];
+  List<ProductResponse> sortedDesigns = [];
 
   readyToggle() {
     isReady.toggle();
@@ -43,6 +44,18 @@ class HomeController extends GetxController {
     }
   }
 
+  getSortedDesignsRequest() async {
+    try {
+      await designRepo.getSortedDesigns().then((value) {
+        if (value.status == 'success') {
+          sortedDesigns.add(ProductResponse.fromJson(value.data));
+        }
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   homepageRequest() async {
     try {
       homeRepo.getHomepage().then((value) {
@@ -53,6 +66,10 @@ class HomeController extends GetxController {
             if (value.data[i]['designs'].isNotEmpty) {
               homePageResponse.add(HomepageResponse.fromJson(value.data[i]));
             }
+          }
+          if (sortedDesigns.isNotEmpty) {
+            homePageResponse.add(HomepageResponse(
+                name: 'Top Ratings', id: 7, designs: sortedDesigns));
           }
           if (homePageResponse.isNotEmpty) {
             isEmpty.value = false;
@@ -83,6 +100,7 @@ class HomeController extends GetxController {
   void onInit() {
     homepageRequest();
     allDesignsRequest();
+    getSortedDesignsRequest();
     super.onInit();
   }
 }

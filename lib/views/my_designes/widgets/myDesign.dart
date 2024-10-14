@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:design_app/data/constant/constant.dart';
 import 'package:design_app/data/models/response/designerHome_response.dart';
+import 'package:design_app/res/images.dart';
 import 'package:design_app/res/styles.dart';
 import 'package:design_app/views/my_designes/binding.dart';
 import 'package:design_app/views/my_designes/controller.dart';
@@ -28,8 +30,15 @@ class MyDesignWidget extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(30),
-              child: Image.network(
-                baseImageUrl + product.image!,
+              // child: Image.network(
+              //   baseImageUrl + product.image!,
+              //   fit: BoxFit.contain,
+              //   width: 150.r,
+              // ),
+              child: CachedNetworkImage(
+                imageUrl: baseImageUrl + product.image!,
+                placeholder: (context, url) => Image.asset(CACHED_DRESS),
+                errorWidget: (context, url, error) => Icon(Icons.error),
                 fit: BoxFit.contain,
                 width: 150.r,
               ),

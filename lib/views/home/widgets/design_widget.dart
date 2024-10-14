@@ -1,11 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:design_app/data/constant/constant.dart';
 import 'package:design_app/data/models/response/product_response.dart';
+import 'package:design_app/res/images.dart';
 import 'package:design_app/res/styles.dart';
 import 'package:design_app/views/design/user/binding.dart';
 import 'package:design_app/views/design/user/controller.dart';
 import 'package:design_app/views/design/user/index.dart';
 import 'package:design_app/views/home/controller.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -36,12 +38,19 @@ class DesignWidget extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(30),
-              child: Image.network(
-                // DRESS,
-                baseImageUrl + product.image!,
-                fit: BoxFit.fill,
+              child: CachedNetworkImage(
                 width: 150.r,
+                imageUrl: baseImageUrl + product.image!,
+                placeholder: (context, url) => Image.asset(CACHED_DRESS),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+                fit: BoxFit.cover,
               ),
+              // child: Image.network(
+              //   // DRESS,
+              //   baseImageUrl + product.image!,
+              //   fit: BoxFit.fill,
+              //   width: 150.r,
+              // ),
             ),
             Text(
               '${product.name}',

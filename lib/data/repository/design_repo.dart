@@ -79,6 +79,13 @@ class DesignRepo {
     });
   }
 
+  getSortedDesigns() async {
+    return await http.getRequest(SORTED_DESIGNS, {}, {
+      "Authorization": "Bearer ${initController.token}",
+      "Accept": "application/json"
+    });
+  }
+
   reviewDesign(ReviewDesignBody body) async {
     return await http.postRequest(REVIEW, body.toJson(), {
       "Authorization": "Bearer ${initController.token}",
@@ -88,6 +95,30 @@ class DesignRepo {
 
   deleteDesign(int id) async {
     return await http.deleteRequest('$DELETE_DESIGN/$id', {}, {
+      "Authorization": "Bearer ${initController.token}",
+      "Accept": "application/json"
+    });
+  }
+
+  getDesigner(String id) async {
+    return await http.getRequest('$GET_DESIGNER/$id', {}, {
+      "Authorization": "Bearer ${initController.token}",
+      "Accept": "application/json"
+    });
+  }
+
+  getOrders() async {
+    return await http.getRequest(USER_INFO, {}, {
+      "Authorization": "Bearer ${initController.token}",
+      "Accept": "application/json"
+    });
+  }
+
+  changeOrderStatus(String orderId, String status) async {
+    return await http.postRequest(CHANGE_ORDER_STATUS, {
+      "order_id": orderId,
+      "status": status
+    }, {
       "Authorization": "Bearer ${initController.token}",
       "Accept": "application/json"
     });

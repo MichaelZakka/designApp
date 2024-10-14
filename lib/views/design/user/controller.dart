@@ -1,4 +1,5 @@
 import 'package:design_app/data/models/body/order_body.dart';
+import 'package:design_app/data/models/response/designerResponse.dart';
 import 'package:design_app/data/repository/design_repo.dart';
 import 'package:design_app/res/colors.dart';
 import 'package:design_app/res/styles.dart';
@@ -12,10 +13,23 @@ class UserDesignContoller extends GetxController {
   RxInt selectedColorIndex = 0.obs;
   RxInt selectedSizeIndex = 0.obs;
   DesignRepo designRepo = DesignRepo();
+  DesignerResponse designer = DesignerResponse();
 
   updateColorIndex(int index) {
     selectedColorIndex.value = index;
     update();
+  }
+
+  getDesignerRequest(String id) async {
+    try {
+      var response = await designRepo.getDesigner(id);
+      print(response.message);
+      if (response.status == 'success') {
+        return DesignerResponse.fromJson(response.data);
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   updateSizeIndex(int index) {
@@ -48,7 +62,7 @@ class UserDesignContoller extends GetxController {
               },
             ),
             content: Text(
-              'Thank you , ${value.message} and We will call you when order is ready to deliver !',
+              'Thank you , ${value.message} and We will call you when order is approved by designer !',
               style: poppins_samll_black,
             ),
             title: value.status,

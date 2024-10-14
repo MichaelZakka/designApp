@@ -45,6 +45,7 @@ dependencies:
   flutter_pannable_rating_bar: ^2.7.2+1
   permission_handler: ^11.3.1
   image_picker: ^1.1.2
+  cached_network_image: ^3.4.0
 
 dev_dependencies:
   flutter_test:

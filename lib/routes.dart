@@ -18,6 +18,8 @@ import 'package:design_app/views/design/user/binding.dart';
 import 'package:design_app/views/design/user/index.dart';
 import 'package:design_app/views/designerHome/binding.dart';
 import 'package:design_app/views/designerHome/index.dart';
+import 'package:design_app/views/designerOrders/binding.dart';
+import 'package:design_app/views/designerOrders/index.dart';
 import 'package:design_app/views/designer_account/binding.dart';
 import 'package:design_app/views/designer_account/index.dart';
 import 'package:design_app/views/home/binding.dart';
@@ -121,6 +123,11 @@ abstract class AppRouting {
           page: () => OrderHistoryPage(),
           binding: OrderHistoryBinding(),
         ),
+        GetPage(
+          name: Pages.designerOrders.value,
+          page: () => DesignerOrderPage(),
+          binding: DesignerOrdersBinding(),
+        ),
       ];
 }
 
@@ -142,6 +149,7 @@ enum Pages {
   myDesignes,
   accountDesigner,
   orderHistory,
+  designerOrders,
 }
 
 extension PagesExtension on Pages {
@@ -181,6 +189,8 @@ extension PagesExtension on Pages {
         return '/category';
       case Pages.orderHistory:
         return '/orderHistory';
+      case Pages.designerOrders:
+        return '/designerOrders';
       default:
         throw 'unnamed route';
     }
@@ -224,6 +234,8 @@ abstract class Navigation {
         return Pages.category;
       case '/orderHistory':
         return Pages.orderHistory;
+      case '/designerOrders':
+        return Pages.designerOrders;
       default:
         return null;
     }
