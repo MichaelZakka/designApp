@@ -4,15 +4,19 @@ import 'package:design_app/data/models/response/design_response.dart';
 import 'package:design_app/res/colors.dart';
 import 'package:design_app/res/images.dart';
 import 'package:design_app/res/styles.dart';
+import 'package:design_app/views/addDesign/controller.dart';
 import 'package:design_app/views/my_designes/controller.dart';
+import 'package:design_app/views/my_designes/widgets/edit_design.dart';
 import 'package:design_app/widgets/buttons/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class MyDesignPage extends StatelessWidget {
-  const MyDesignPage({super.key, required this.design});
+  MyDesignPage({super.key, required this.design});
   final DesignResponse design;
+  final AddDesignController addDesignController =
+      Get.put(AddDesignController());
 
   @override
   Widget build(BuildContext context) {
@@ -27,46 +31,86 @@ class MyDesignPage extends StatelessWidget {
     return GetBuilder<MyDesignesController>(builder: (_) {
       return SafeArea(
         child: Scaffold(
-          floatingActionButton: Container(
-              width: 60,
-              height: 60,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: pink,
-              ),
-              child: Center(
-                child: IconButton(
-                  onPressed: () {
-                    Get.defaultDialog(
-                        confirm: CustomButton(
-                          color: pink,
-                          text: 'Yes',
-                          textStyle: poppins_xSamll_white,
-                          ontap: (){
-                            _.deleteDesignRequest(design.id!);
-                          },
-                        ),
-                        cancel: CustomButton(
-                          color: pink,
-                          text: 'No',
-                          textStyle: poppins_xSamll_white,
-                          ontap: () {
-                            Get.back();
-                          },
-                        ),
-                        content: Text(
-                          style: poppins_xSamll_black,
-                          'Are you sure you want to delete this design ?',
-                          textAlign: TextAlign.center,
-                        ));
-                  },
-                  icon: const Icon(
-                    Icons.delete,
-                    size: 30,
-                    color: white,
+          floatingActionButton: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                  width: 60,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: pink,
                   ),
-                ),
-              )),
+                  child: Center(
+                    child: IconButton(
+                      onPressed: () {
+                        _.design = design;
+                        _.name.text = design.name!;
+                        _.description.text = design.description!;
+                        _.prepareDeadline.text = design.prepareDuration!;
+                        _.price.text = design.price!;
+                        _.displatCategory.value = addDesignController
+                            .categories[design.categoryId! - 1].name!;
+                        // _.designSizesCheckList = _
+                            // .sizesCheckList(
+                            //     addDesignController.getSizes(), _.choosenSizes)
+                            // .obs;
+                        print(_.designSizesCheckList);
+                        Get.to(() => EditDesign(
+                              design: design,
+                            ));
+                        // _.getSizes(),__.choosenSizes
+                      },
+                      icon: const Icon(
+                        Icons.edit,
+                        size: 30,
+                        color: white,
+                      ),
+                    ),
+                  )),
+              15.r.verticalSpace,
+              Container(
+                  width: 60,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: pink,
+                  ),
+                  child: Center(
+                    child: IconButton(
+                      onPressed: () {
+                        Get.defaultDialog(
+                            confirm: CustomButton(
+                              color: pink,
+                              text: 'Yes',
+                              textStyle: poppins_xSamll_white,
+                              ontap: () {
+                                _.deleteDesignRequest(design.id!);
+                              },
+                            ),
+                            cancel: CustomButton(
+                              color: pink,
+                              text: 'No',
+                              textStyle: poppins_xSamll_white,
+                              ontap: () {
+                                Get.back();
+                              },
+                            ),
+                            content: Text(
+                              style: poppins_xSamll_black,
+                              'Are you sure you want to delete this design ?',
+                              textAlign: TextAlign.center,
+                            ));
+                      },
+                      icon: const Icon(
+                        Icons.delete,
+                        size: 30,
+                        color: white,
+                      ),
+                    ),
+                  )),
+            ],
+          ),
           // endDrawer: ,
           appBar: AppBar(
             backgroundColor: light_pink,
@@ -88,11 +132,11 @@ class MyDesignPage extends StatelessWidget {
                     //   fit: BoxFit.fitHeight,
                     // ),
                     CachedNetworkImage(
-                    imageUrl: baseImageUrl +design.image!,
-                    placeholder: (context, url) => Image.asset(CACHED_DRESS),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
-                    fit: BoxFit.cover,
-                  ),
+                      imageUrl: baseImageUrl + design.image!,
+                      placeholder: (context, url) => Image.asset(CACHED_DRESS),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                      fit: BoxFit.cover,
+                    ),
                     15.r.verticalSpace,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

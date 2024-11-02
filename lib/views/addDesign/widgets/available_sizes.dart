@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AvailableSizes extends StatefulWidget {
-  const AvailableSizes({super.key, required this.sizes});
   final List<SizeResponse> sizes;
+  final bool update;
+  const AvailableSizes({super.key, required this.sizes, this.update = false});
 
   @override
   State<AvailableSizes> createState() => _AvailableSizesState();
@@ -25,10 +26,11 @@ class _AvailableSizesState extends State<AvailableSizes> {
                 _.selectedSizes.add(_.availableSizes[i].id!);
               }
             }
-            _.filterSizeResponseByIds(_.availableSizes, _.selectedSizes);
-
-            Navigator.pop(context);
             print(_.sizeName);
+            print('_.sizeName');
+            _.filterSizeResponseByIds(_.availableSizes, _.selectedSizes);
+            print(_.sizeName);
+            Navigator.pop(context);
           },
           child: Container(
               width: 60,

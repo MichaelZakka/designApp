@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:design_app/data/constant/constant.dart';
 import 'package:design_app/data/models/response/pending_designs_response.dart';
 import 'package:design_app/res/images.dart';
 import 'package:design_app/res/styles.dart';
@@ -33,11 +35,12 @@ class DesignerDesignPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.asset(
-                    DRESS,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
+                  CachedNetworkImage(
+                imageUrl: baseImageUrl + design!.image!,
+                placeholder: (context, url) => Image.asset(CACHED_DRESS),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+                fit: BoxFit.cover,
+              ),
                   Text(
                     'Designer name',
                     style: poppins_medium_black_bold,

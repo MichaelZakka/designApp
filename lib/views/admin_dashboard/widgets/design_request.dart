@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:design_app/data/constant/constant.dart';
 import 'package:design_app/data/models/response/pending_designs_response.dart';
 import 'package:design_app/res/colors.dart';
 import 'package:design_app/res/images.dart';
@@ -27,7 +29,13 @@ class DesignRequest extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Image.asset(DRESS),
+              CachedNetworkImage(
+                imageUrl: baseImageUrl + design.image!,
+                placeholder: (context, url) => Image.asset(CACHED_DRESS),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+                fit: BoxFit.cover,
+              ),
+
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

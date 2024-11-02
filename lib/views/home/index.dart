@@ -1,4 +1,5 @@
 import 'package:card_swiper/card_swiper.dart';
+import 'package:design_app/data/models/response/homepage_response.dart';
 import 'package:design_app/res/colors.dart';
 import 'package:design_app/res/styles.dart';
 import 'package:design_app/views/home/controller.dart';
@@ -17,9 +18,8 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             GestureDetector(
-              onTap: (){
-                print(_.homePageResponse.length);
-                
+              onTap: () {
+                print(_.getSortedDesignsRequest());
               },
               child: Container(
                 height: 200.r,
@@ -37,6 +37,35 @@ class HomePage extends StatelessWidget {
               ),
             ),
             15.r.verticalSpace,
+            // _.sortedData.value
+            // ? _.sortedDesigns.isNotEmpty
+            //     ? SizedBox(
+            //         width: Get.width * 0.9,
+            //         child: CategoryDisplay(
+            //             category: HomepageResponse(
+            //                 designs: _.sortedDesigns,
+            //                 id: 99,
+            //                 name: 'Top Rated')),
+            //       )
+            //     : const SizedBox()
+            // :
+            _.loadingSorted.value
+                ? Center(
+                    child: CircularProgressIndicator(
+                      color: blue,
+                    ),
+                  )
+                : _.sortedDesigns.isEmpty
+                    ? const SizedBox()
+                    : SizedBox(
+                        width: Get.width * 0.9,
+                        child: CategoryDisplay(
+                            category: HomepageResponse(
+                                designs: _.sortedDesigns,
+                                id: 99,
+                                name: 'Top Rated')),
+                      ),
+            15.r.verticalSpace,
             _.isReady.value
                 ? _.isEmpty.value
                     ? Center(
@@ -52,7 +81,7 @@ class HomePage extends StatelessWidget {
                       )
                     : SizedBox(
                         height: Get.height * 0.7,
-                        width: Get.width*0.9,
+                        width: Get.width * 0.9,
                         child: ListView.builder(
                           itemCount: _.homePageResponse.length,
                           itemBuilder: (context, index) {

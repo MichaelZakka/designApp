@@ -41,6 +41,15 @@ class AddDesignController extends GetxController {
   List<SizeResponse> availableSizes = [];
   List<ColorResponse> availableColors = [];
 
+
+  // getSizes(){
+  //   List<String>sizesSize =[];
+  //   for(int i=0 ; i<availableSizes.length;i++){
+  //     sizesSize.add(availableSizes[i].size!);
+  //   }
+  //   return sizesSize;
+  // }
+
   List<RxBool> sizesChecklist = [];
   List<RxBool> colorsChecklist = [];
 
@@ -123,25 +132,13 @@ class AddDesignController extends GetxController {
     update();
   }
 
-  // Future<void> pickImageFromCamera() async {
-  //   final pickedFile = await picker.pickImage(source: ImageSource.camera);
-
-  //   if (pickedFile != null) {
-  //     image = File(pickedFile.path);
-  //   } else {
-  //     print('No image captured.');
-  //   }
-  // }
   getCategoriesRequest() async {
     try {
       designRepo.getCategories().then((value) {
         if (value.status == 'success') {
-          // categories = CategoryResponse.fromJson(value.data);
-          // print(categories);
           categoriesList(value.data);
           print('===============================');
           print('categories');
-          // print(categories);
           print(value.data);
           print('===============================');
         }
@@ -174,7 +171,6 @@ class AddDesignController extends GetxController {
           for (int i = 0; i < availableSizes.length; i++) {
             sizesChecklist.add(false.obs);
           }
-          // mapJsonToItemResponseList(value.data , availableSizes);
         }
       });
     } catch (e) {
@@ -219,7 +215,7 @@ class AddDesignController extends GetxController {
         'description': description.text,
         'prepare_duration': prepareDeadline.text,
         'price': price.text,
-        'category_id': '1',
+        'category_id': '$selectedCategoryId',
       }, sizesToSend, colorsToSend, pickedImage).then((value) {
         loadingToggle();
         validation(

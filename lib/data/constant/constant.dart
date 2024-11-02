@@ -1,5 +1,5 @@
-const String baseUrl = 'http://192.168.68.125:8000';
-const String baseImageUrl = 'http://192.168.68.125:8000/storage/';
+const String baseUrl = 'http://192.168.217.125:8000';
+const String baseImageUrl = 'http://192.168.217.125:8000/storage/';
 
 /////////////////////////////////////headers/////////////////////////////////////
 
@@ -28,6 +28,7 @@ const String CATEGORIES = '$baseUrl/api/categories';
 const String COLORS = '$baseUrl/api/colors';
 const String SIZES = '$baseUrl/api/sizes';
 const String CREATE_DESIGN = '$baseUrl/api/design-create';
+const String UPDATE_DESIGN = '$baseUrl/api/design-update';
 const String DELETE_DESIGN = '$baseUrl/api/design-delete';
 
 /////////////////////////////////////admin/////////////////////////////////////

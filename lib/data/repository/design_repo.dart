@@ -123,4 +123,28 @@ class DesignRepo {
       "Accept": "application/json"
     });
   }
+
+  editDesign(Map<String, dynamic> body, Map<String, dynamic> sizes,
+      Map<String, dynamic> colors, String? image, int id) async {
+    final request =
+        multiPartHttp.MultipartRequest('POST', Uri.parse('$UPDATE_DESIGN/$id'));
+    request.fields.addAll({...body, ...sizes, ...colors});
+    if (image != null) {
+      request.files
+          .add(await multiPartHttp.MultipartFile.fromPath('image', image));
+    }
+    request.headers.addAll({
+      "Authorization": "Bearer ${initController.token}",
+      "Accept": "application/json"
+    });
+
+    final apiCall = await request.send();
+    final response = await multiPartHttp.Response.fromStream(apiCall);
+    var js = jsonDecode(response.body);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return ApiResponse.fromJson(js);
+    } else {
+      return ApiErrorResponse.fromJson(js);
+    }
+  }
 }

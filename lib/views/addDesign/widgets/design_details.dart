@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:design_app/data/models/response/product_response.dart';
 import 'package:design_app/res/colors.dart';
 import 'package:design_app/res/styles.dart';
 import 'package:design_app/views/addDesign/controller.dart';
@@ -12,7 +13,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class DesignDetails extends StatelessWidget {
-  const DesignDetails({super.key});
+  final ProductResponse? product;
+  const DesignDetails({super.key, this.product});
 
   @override
   Widget build(BuildContext context) {

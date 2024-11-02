@@ -17,6 +17,13 @@ class HomeController extends GetxController {
   List<ProductResponse> allProduts = [];
   List<ProductResponse> sortedDesigns = [];
 
+  RxBool loadingSorted = true.obs;
+
+  sortedDataToggle() {
+    loadingSorted.toggle();
+    update();
+  }
+
   readyToggle() {
     isReady.toggle();
     update();
@@ -47,8 +54,14 @@ class HomeController extends GetxController {
   getSortedDesignsRequest() async {
     try {
       await designRepo.getSortedDesigns().then((value) {
+        print(value.status);
         if (value.status == 'success') {
-          sortedDesigns.add(ProductResponse.fromJson(value.data));
+          sortedDataToggle();
+          if (value.data.length != 0) {
+            for (int i = 0; i < value.data.length; i++) {
+              sortedDesigns.add(ProductResponse.fromJson(value.data[i]));
+            }
+          }
         }
       });
     } catch (e) {
@@ -58,23 +71,30 @@ class HomeController extends GetxController {
 
   homepageRequest() async {
     try {
-      homeRepo.getHomepage().then((value) {
-        if (value.status == 'success') {
+      //   await designRepo.getSortedDesigns().then((value) async {
+      //     if (value.status == 'success') {
+      //       for (int i = 0; i < value.data.length; i++) {
+      //         sortedDesigns.add(ProductResponse.fromJson(value.data));
+      //       }
+      //     }
+      await homeRepo.getHomepage().then((value1) {
+        if (value1.status == 'success') {
           readyToggle();
-          print(value.data.length);
-          for (int i = 0; i < value.data.length; i++) {
-            if (value.data[i]['designs'].isNotEmpty) {
-              homePageResponse.add(HomepageResponse.fromJson(value.data[i]));
+          print(value1.data.length);
+          for (int i = 0; i < value1.data.length; i++) {
+            if (value1.data[i]['designs'].isNotEmpty) {
+              homePageResponse.add(HomepageResponse.fromJson(value1.data[i]));
             }
           }
-          if (sortedDesigns.isNotEmpty) {
-            homePageResponse.add(HomepageResponse(
-                name: 'Top Ratings', id: 7, designs: sortedDesigns));
-          }
+          // if (sortedDesigns.isNotEmpty) {
+          //   homePageResponse.add(HomepageResponse(
+          //       name: 'Top Ratings', id: 7, designs: sortedDesigns));
+          // }
           if (homePageResponse.isNotEmpty) {
             isEmpty.value = false;
           }
         }
+        // });
       });
     } catch (e) {
       print(e);
