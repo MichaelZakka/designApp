@@ -63,9 +63,9 @@ class AuthWidget extends StatelessWidget {
                                   email: _.lEmail.text,
                                   password: _.lPassword.text));
                             }
-                            // if (_.lEmail.text == 'admin') {
-                            //   Get.offAllNamed('/admin');
-                            // }
+                            if (_.lEmail.text == 'admin') {
+                              Get.offAllNamed('/admin');
+                            }
                           },
                           textStyle: poppins_xSamll_white_bold,
                         ),
