@@ -1,5 +1,5 @@
-const String baseUrl = 'http://192.168.217.125:8000';
-const String baseImageUrl = 'http://192.168.217.125:8000/storage/';
+const String baseUrl = 'http://192.168.226.125:8000';
+const String baseImageUrl = 'http://192.168.226.125:8000/storage/';
 
 /////////////////////////////////////headers/////////////////////////////////////
 

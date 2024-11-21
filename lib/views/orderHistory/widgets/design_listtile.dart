@@ -95,9 +95,15 @@ class DesignListTile extends StatelessWidget {
                                       ),
                                     )),
                             onCompleted: (value) {
-                              _.reviewDesignRequest(ReviewDesignBody(
-                                  designId: order!.designId.toString(),
-                                  rate: value.toString()));
+                              if (value >= 1 && value <= 5) {
+                                _.reviewDesignRequest(ReviewDesignBody(
+                                    designId: order!.designId.toString(),
+                                    rate: value.toString()));
+                              } else if (value > 5) {
+                                _.reviewDesignRequest(ReviewDesignBody(
+                                    designId: order!.designId.toString(),
+                                    rate: 5.toString()));
+                              }
                             },
                             onChanged: (value) {
                               _.updateRating(index, value);

@@ -64,7 +64,7 @@ class DesignerInfoPage extends StatelessWidget {
                       return ClipRRect(
                         borderRadius: BorderRadius.circular(15),
                         child: CachedNetworkImage(
-                          imageUrl: baseImageUrl + designer.designs![0].image!,
+                          imageUrl: baseImageUrl + designer.designs![index].image!,
                           placeholder: (context, url) =>
                               Image.asset(CACHED_DRESS),
                           errorWidget: (context, url, error) =>

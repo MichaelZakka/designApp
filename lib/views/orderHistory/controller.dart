@@ -46,6 +46,7 @@ class OrderHistoryController extends GetxController {
       designRepo.reviewDesign(body).then((value) {
         if (value.status == 'success') {
           validation(value.message, green);
+          Get.offAllNamed('/main');
         } else {
           validation('Something went wrong', red);
         }
