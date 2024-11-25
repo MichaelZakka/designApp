@@ -7,7 +7,6 @@ import 'package:design_app/views/my_designes/binding.dart';
 import 'package:design_app/views/my_designes/controller.dart';
 import 'package:design_app/views/my_designes/widgets/myDesign_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class MyDesignWidget extends StatelessWidget {
@@ -28,19 +27,21 @@ class MyDesignWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(30),
-              // child: Image.network(
-              //   baseImageUrl + product.image!,
-              //   fit: BoxFit.contain,
-              //   width: 150.r,
-              // ),
-              child: CachedNetworkImage(
-                imageUrl: baseImageUrl + product.image!,
-                placeholder: (context, url) => Image.asset(CACHED_DRESS),
-                errorWidget: (context, url, error) => Icon(Icons.error),
-                fit: BoxFit.contain,
-                width: 150.r,
+            AspectRatio(
+              aspectRatio: 0.75,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                // child: Image.network(
+                //   baseImageUrl + product.image!,
+                //   fit: BoxFit.contain,
+                //   width: 150.r,
+                // ),
+                child: CachedNetworkImage(
+                  imageUrl: baseImageUrl + product.image!,
+                  placeholder: (context, url) => Image.asset(CACHED_DRESS),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             Text(

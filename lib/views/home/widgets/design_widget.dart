@@ -8,7 +8,6 @@ import 'package:design_app/views/design/user/controller.dart';
 import 'package:design_app/views/design/user/index.dart';
 import 'package:design_app/views/home/controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class DesignWidget extends StatelessWidget {
@@ -36,21 +35,23 @@ class DesignWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(30),
-              child: CachedNetworkImage(
-                width: 150.r,
-                imageUrl: baseImageUrl + product.image!,
-                placeholder: (context, url) => Image.asset(CACHED_DRESS),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-                fit: BoxFit.cover,
+            AspectRatio(
+              aspectRatio: 0.75,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: CachedNetworkImage(
+                  imageUrl: baseImageUrl + product.image!,
+                  placeholder: (context, url) => Image.asset(CACHED_DRESS),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  fit: BoxFit.cover,
+                ),
+                // child: Image.network(
+                //   // DRESS,
+                //   baseImageUrl + product.image!,
+                //   fit: BoxFit.fill,
+                //   width: 150.r,
+                // ),
               ),
-              // child: Image.network(
-              //   // DRESS,
-              //   baseImageUrl + product.image!,
-              //   fit: BoxFit.fill,
-              //   width: 150.r,
-              // ),
             ),
             Text(
               '${product.name}',

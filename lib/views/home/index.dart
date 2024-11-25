@@ -19,7 +19,6 @@ class HomePage extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                print(_.getSortedDesignsRequest());
               },
               child: Container(
                 height: 200.r,

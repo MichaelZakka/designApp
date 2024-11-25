@@ -49,7 +49,7 @@ class ExplorePage extends StatelessWidget {
                                   crossAxisCount: 2,
                                   crossAxisSpacing: 45,
                                   mainAxisSpacing: 45,
-                                  childAspectRatio: 0.6),
+                                  childAspectRatio: 0.55),
                           itemBuilder: (context, index) {
                             return DesignWidget(product: _.productsToDisplay[index]);
                           },

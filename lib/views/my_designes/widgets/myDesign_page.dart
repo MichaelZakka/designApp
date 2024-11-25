@@ -131,11 +131,13 @@ class MyDesignPage extends StatelessWidget {
                     //   width: double.infinity,
                     //   fit: BoxFit.fitHeight,
                     // ),
-                    CachedNetworkImage(
-                      imageUrl: baseImageUrl + design.image!,
-                      placeholder: (context, url) => Image.asset(CACHED_DRESS),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                      fit: BoxFit.cover,
+                    Center(
+                      child: CachedNetworkImage(
+                        imageUrl: baseImageUrl + design.image!,
+                        placeholder: (context, url) => Image.asset(CACHED_DRESS),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     15.r.verticalSpace,
                     Row(

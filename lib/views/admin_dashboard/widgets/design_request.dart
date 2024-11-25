@@ -29,13 +29,15 @@ class DesignRequest extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              CachedNetworkImage(
-                imageUrl: baseImageUrl + design.image!,
-                placeholder: (context, url) => Image.asset(CACHED_DRESS),
-                errorWidget: (context, url, error) => Icon(Icons.error),
-                fit: BoxFit.cover,
+              AspectRatio(
+                aspectRatio: 1,
+                child: CachedNetworkImage(
+                  imageUrl: baseImageUrl + design.image!,
+                  placeholder: (context, url) => Image.asset(CACHED_DRESS),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  fit: BoxFit.cover,
+                ),
               ),
-
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

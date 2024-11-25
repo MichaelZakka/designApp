@@ -145,7 +145,7 @@ class DesignDetails extends StatelessWidget {
                           onClosing: () {},
                           builder: (context) {
                             return SizedBox(
-                              height: Get.height * 0.2,
+                              height: Get.height * 0.3,
                               child: Center(
                                 child: Dialog(
                                   child: Row(

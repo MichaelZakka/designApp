@@ -6,7 +6,6 @@ import 'package:design_app/res/styles.dart';
 import 'package:design_app/widgets/appBar/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
 class DesignerInfoPage extends StatelessWidget {
   final DesignerResponse designer;
@@ -51,9 +50,7 @@ class DesignerInfoPage extends StatelessWidget {
                   ),
                 ),
                 25.r.verticalSpace,
-                SizedBox(
-                  width: Get.width * 0.9,
-                  height: Get.height * 0.4,
+                Expanded(
                   child: GridView.builder(
                     itemCount: designer.designs!.length,
                     gridDelegate:
@@ -61,15 +58,18 @@ class DesignerInfoPage extends StatelessWidget {
                       crossAxisCount: 3,
                     ),
                     itemBuilder: (context, index) {
-                      return ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: CachedNetworkImage(
-                          imageUrl: baseImageUrl + designer.designs![index].image!,
-                          placeholder: (context, url) =>
-                              Image.asset(CACHED_DRESS),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
-                          fit: BoxFit.cover,
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: CachedNetworkImage(
+                            imageUrl: baseImageUrl + designer.designs![index].image!,
+                            placeholder: (context, url) =>
+                                Image.asset(CACHED_DRESS),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       );
                     },

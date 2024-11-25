@@ -39,7 +39,7 @@ class DesignerDesignPage extends StatelessWidget {
                 imageUrl: baseImageUrl + design!.image!,
                 placeholder: (context, url) => Image.asset(CACHED_DRESS),
                 errorWidget: (context, url, error) => Icon(Icons.error),
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
                   Text(
                     'Designer name',
